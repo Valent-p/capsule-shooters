@@ -1,0 +1,136 @@
+[gd_scene load_steps=24 format=3 uid="uid://du2f51txplfil"]
+
+[ext_resource type="Script" uid="uid://b00ejk3lv1fhi" path="res://chars/enemies/simple_shooter_enemy/simple_shooter_enemy.gd" id="1_l4l6i"]
+[ext_resource type="Script" uid="uid://cp5smayj4d7tk" path="res://components/movement_component.gd" id="2_5oufj"]
+[ext_resource type="PackedScene" uid="uid://cf8cnbmjtb5hv" path="res://assets/chars/capbot/capbot_v1.blend" id="2_vicfj"]
+[ext_resource type="Script" uid="uid://c21525r5sh2uw" path="res://components/weapon/weapon_component.gd" id="4_m7rq4"]
+[ext_resource type="PackedScene" uid="uid://dr8j4rvlsxtja" path="res://projectiles/projectile.tscn" id="5_usvoi"]
+[ext_resource type="PackedScene" uid="uid://xt7cx1mn6fqj" path="res://components/hitbox/hitbox_component.tscn" id="6_5oufj"]
+[ext_resource type="Script" uid="uid://c01v2grcdmohh" path="res://weapons/primary/primary_weapon_resource.gd" id="6_vicfj"]
+[ext_resource type="Script" uid="uid://xy4w4mby7chk" path="res://components/health_component.gd" id="7_m7rq4"]
+[ext_resource type="PackedScene" uid="uid://njik044oxy4u" path="res://components/healthbar/healthbar_component.tscn" id="8_usvoi"]
+[ext_resource type="BehaviorTree" uid="uid://6phs3pgg4188" path="res://chars/enemies/simple_shooter_enemy/simple_shooter_btree.tres" id="9_usvoi"]
+[ext_resource type="PackedScene" uid="uid://mo2tipsgjjkb" path="res://assets/landmines/explosive_landmine.blend" id="10_sjmnc"]
+[ext_resource type="Script" uid="uid://c32ceo13bjxxl" path="res://components/tertiary_drop_component.gd" id="11_cav3t"]
+[ext_resource type="PackedScene" uid="uid://cm1wvd7fofm1h" path="res://weapons/landmines/explosive_landmine/explosive_landmine_powerup.tscn" id="11_f55qr"]
+[ext_resource type="Script" uid="uid://drhuwhi5t8amy" path="res://weapons/tertiary/tertiary_weapon_resource.gd" id="12_g751j"]
+[ext_resource type="PackedScene" uid="uid://7a44xavkx6j1" path="res://weapons/landmines/explosive_landmine/explosive_landmine.tscn" id="13_5w5as"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cav3t"]
+size = Vector3(0.3, 0.3, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q7yal"]
+albedo_color = Color(0.6228356, 0.24856558, 0.3160965, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_mccuw"]
+material = SubResource("StandardMaterial3D_q7yal")
+radius = 0.3
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g034d"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="Resource" id="Resource_vicfj"]
+script = ExtResource("6_vicfj")
+projectile_scene = ExtResource("5_usvoi")
+projectile_damage = 2.0
+metadata/_custom_type_script = "uid://c01v2grcdmohh"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jv388"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="Resource" id="Resource_lyxjx"]
+script = ExtResource("12_g751j")
+weapon_name = "Explosive Landmine"
+weapon_scene = ExtResource("13_5w5as")
+powerup_scene = ExtResource("11_f55qr")
+model = ExtResource("10_sjmnc")
+metadata/_custom_type_script = "uid://drhuwhi5t8amy"
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_vicfj"]
+
+[node name="SimpleShooterEnemy" type="CharacterBody3D" node_paths=PackedStringArray("movement_component", "nav_agent", "sight_check_raycast", "bottom_marker", "shoot_marker", "weapon_component")]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_l4l6i")
+movement_component = NodePath("MovementComponent")
+nav_agent = NodePath("NavigationAgent3D")
+sight_check_raycast = NodePath("SightCheckRayCast3D")
+bottom_marker = NodePath("BottomMarker3D")
+shoot_marker = NodePath("ShootMarker3D")
+weapon_component = NodePath("WeaponComponent")
+
+[node name="GunMeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.4)
+mesh = SubResource("BoxMesh_cav3t")
+
+[node name="capbot_v1" parent="." instance=ExtResource("2_vicfj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.37814045, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CapsuleMesh_mccuw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_g034d")
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("agent")]
+script = ExtResource("2_5oufj")
+agent = NodePath("..")
+metadata/_custom_type_script = "uid://cp5smayj4d7tk"
+
+[node name="WeaponComponent" type="Node" parent="." node_paths=PackedStringArray("agent", "shoot_marker")]
+script = ExtResource("4_m7rq4")
+agent = NodePath("..")
+shoot_marker = NodePath("../ShootMarker3D")
+primary_weapon_resource = SubResource("Resource_vicfj")
+metadata/_custom_type_script = "uid://c21525r5sh2uw"
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("agent", "health_component") instance=ExtResource("6_5oufj")]
+agent = NodePath("..")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("CapsuleShape3D_jv388")
+debug_color = Color(0, 0.64645714, 0.21899861, 0.41960785)
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("7_m7rq4")
+metadata/_custom_type_script = "uid://xy4w4mby7chk"
+
+[node name="TertiaryDropComponent" type="Node" parent="." node_paths=PackedStringArray("position_marker", "health_component")]
+script = ExtResource("11_cav3t")
+position_marker = NodePath("../BottomMarker3D")
+health_component = NodePath("../HealthComponent")
+tertiary_weapon_resource = SubResource("Resource_lyxjx")
+metadata/_custom_type_script = "uid://c32ceo13bjxxl"
+
+[node name="HealthbarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("8_usvoi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1899331, 0)
+health_component = NodePath("../HealthComponent")
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("9_usvoi")
+blackboard_plan = SubResource("BlackboardPlan_vicfj")
+
+[node name="ShootMarker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.6587256)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+debug_enabled = true
+debug_path_custom_color = Color(0.7553852, 0.00013659507, 0.6527253, 1)
+debug_path_custom_point_size = 5.0
+
+[node name="SightCheckRayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -20)
+collision_mask = 3
+debug_shape_custom_color = Color(1.0039216, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="BottomMarker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8964255, 0)
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

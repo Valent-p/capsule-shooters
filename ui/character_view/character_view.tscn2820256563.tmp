@@ -1,0 +1,227 @@
+[gd_scene load_steps=4 format=3 uid="uid://cauqfeg47np2u"]
+
+[ext_resource type="Script" uid="uid://cdk3qb3lq6qym" path="res://ui/character_view/character_view.gd" id="1_8cu5j"]
+[ext_resource type="PackedScene" uid="uid://do3efr0yigr2h" path="res://ui/character_view/character_view_item_slot.tscn" id="3_03q0n"]
+[ext_resource type="FontFile" uid="uid://bt50el5y4lmc" path="res://assets/fonts/rimouski/rimouski sb.otf" id="4_i5a8l"]
+
+[node name="CharacterView" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8cu5j")
+slot_scene = ExtResource("3_03q0n")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer"]
+layout_mode = 2
+current_tab = 0
+
+[node name="Equips" type="MarginContainer" parent="MarginContainer/TabContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+metadata/_tab_index = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/Equips"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Equips/HBoxContainer"]
+layout_mode = 2
+
+[node name="Slots" type="GridContainer" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 3
+
+[node name="EquipTL" type="Button" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots/EquipTL"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+expand_mode = 1
+
+[node name="EquipTC" type="Button" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots/EquipTC"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+expand_mode = 1
+
+[node name="EquipTR" type="Button" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots/EquipTR"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+expand_mode = 1
+
+[node name="EquipCL" type="Button" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots/EquipCL"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+expand_mode = 1
+
+[node name="EquipCC" type="Button" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots/EquipCC"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+expand_mode = 1
+
+[node name="EquipCR" type="Button" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots/EquipCR"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+expand_mode = 1
+
+[node name="EquipBC" type="Button" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots/EquipBC"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+expand_mode = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="SwapButton" type="Button" parent="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+text = "Swap"
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/TabContainer/Equips/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/Equips/HBoxContainer"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Equips/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ThrowableAvailableItems" type="GridContainer" parent="MarginContainer/TabContainer/Equips/HBoxContainer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 4
+
+[node name="BulletAvailableItems" type="GridContainer" parent="MarginContainer/TabContainer/Equips/HBoxContainer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 4
+
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/TabContainer/Equips/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="ThrowableStatsContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Equips/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EquippedRichTextLabel" type="RichTextLabel" parent="MarginContainer/TabContainer/Equips/HBoxContainer/ThrowableStatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/normal_font = ExtResource("4_i5a8l")
+bbcode_enabled = true
+fit_content = true
+
+[node name="SelectedRichTextLabel" type="RichTextLabel" parent="MarginContainer/TabContainer/Equips/HBoxContainer/ThrowableStatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+fit_content = true
+
+[node name="Item Progress" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+metadata/_tab_index = 1
+
+[node name="Equips3" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+metadata/_tab_index = 2
+
+[connection signal="pressed" from="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots/EquipTL" to="." method="_on_equip_tl_pressed"]
+[connection signal="pressed" from="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots/EquipTR" to="." method="_on_equip_tr_pressed"]
+[connection signal="pressed" from="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots/EquipCL" to="." method="_on_equip_cl_pressed"]
+[connection signal="pressed" from="MarginContainer/TabContainer/Equips/HBoxContainer/VBoxContainer/Slots/EquipCR" to="." method="_on_equip_cr_pressed"]

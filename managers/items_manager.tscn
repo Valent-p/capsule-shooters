@@ -1,0 +1,13 @@
+[gd_scene load_steps=7 format=3 uid="uid://cbycma7xmk52p"]
+
+[ext_resource type="Script" uid="uid://g8cvub7okl7o" path="res://managers/items_manager.gd" id="1_nngb8"]
+[ext_resource type="Script" uid="uid://bnrtkettmgc0n" path="res://items/equippable/bullet/bullet_item_data.gd" id="2_q4kc8"]
+[ext_resource type="Resource" uid="uid://dnn21tbc3171c" path="res://items/equippable/bullet/simple_bullet.tres" id="3_q4kc8"]
+[ext_resource type="Resource" uid="uid://cxewlw674pl5l" path="res://items/equippable/bullet/faster_bullet.tres" id="4_73ebx"]
+[ext_resource type="Resource" uid="uid://b8m71w51i65hx" path="res://items/equippable/throwable/landmines/explosive_landmine/explosive_landmine_data.tres" id="5_8xsb4"]
+[ext_resource type="Script" uid="uid://ci1lhwkuvh3c2" path="res://items/equippable/throwable/throwable_item_data.gd" id="5_73ebx"]
+
+[node name="ItemsManager" type="Node"]
+script = ExtResource("1_nngb8")
+hand_items = Array[ExtResource("2_q4kc8")]([ExtResource("3_q4kc8"), ExtResource("4_73ebx")])
+throwable_items = Array[ExtResource("5_73ebx")]([ExtResource("5_8xsb4")])

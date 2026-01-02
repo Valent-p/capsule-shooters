@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://oq5kace1y2r4"]
+
+[ext_resource type="Script" uid="uid://cbkfubv288lp3" path="res://systems/leveling/leveling_system.gd" id="1_mhr7m"]
+
+[node name="LevelingSystem" type="Node"]
+script = ExtResource("1_mhr7m")
+
+[connection signal="leveled_up" from="." to="." method="_on_leveled_up"]

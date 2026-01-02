@@ -1,0 +1,94 @@
+[gd_scene load_steps=17 format=3 uid="uid://hmwovwxii41u"]
+
+[ext_resource type="Script" uid="uid://kufxxrxbcpwi" path="res://chars/player/player.gd" id="1_48llr"]
+[ext_resource type="Script" uid="uid://cp5smayj4d7tk" path="res://components/movement_component.gd" id="1_nna18"]
+[ext_resource type="PackedScene" uid="uid://bu3d7dpn06hy3" path="res://assets/chars/capbot/capbot_v3.blend" id="2_ubdfs"]
+[ext_resource type="Script" uid="uid://cy2accaijay7a" path="res://components/input_component.gd" id="2_xkt62"]
+[ext_resource type="Script" uid="uid://c21525r5sh2uw" path="res://components/weapon/weapon_component.gd" id="3_1hqif"]
+[ext_resource type="Script" uid="uid://xy4w4mby7chk" path="res://components/health_component.gd" id="6_843ns"]
+[ext_resource type="Resource" uid="uid://dnn21tbc3171c" path="res://items/equippable/bullet/simple_bullet.tres" id="6_fcvhq"]
+[ext_resource type="Resource" uid="uid://cxewlw674pl5l" path="res://items/equippable/bullet/faster_bullet.tres" id="6_kg6m1"]
+[ext_resource type="PackedScene" uid="uid://njik044oxy4u" path="res://components/healthbar/healthbar_component.tscn" id="7_hf3gw"]
+[ext_resource type="PackedScene" uid="uid://xt7cx1mn6fqj" path="res://components/hitbox/hitbox_component.tscn" id="7_s2ewj"]
+[ext_resource type="Resource" uid="uid://pbogt84mxwva" path="res://items/equippable/core/medium_core.tres" id="8_r38wa"]
+[ext_resource type="PackedScene" uid="uid://btqw5g0uc7uoj" path="res://ui/player_ui.tscn" id="12_ubdfs"]
+[ext_resource type="PackedScene" uid="uid://oq5kace1y2r4" path="res://systems/leveling/leveling_system.tscn" id="13_fcvhq"]
+[ext_resource type="PackedScene" uid="uid://btr3vj6ldpn7l" path="res://systems/leveling/levelup_vfx.tscn" id="14_r38wa"]
+[ext_resource type="PackedScene" uid="uid://dy1tm5ujw2fp3" path="res://components/following_cameras/following_camera_component.tscn" id="15_48llr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nna18"]
+radius = 0.3
+height = 1.8
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("input_component", "bottom_marker", "shoot_marker", "weapon_component", "health_component", "movement_component", "hitbox_component", "leveling_system") groups=["Player"]]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_48llr")
+input_component = NodePath("InputComponent")
+bottom_marker = NodePath("BottomMarker3D")
+shoot_marker = NodePath("ShootMarker3D")
+weapon_component = NodePath("WeaponComponent")
+health_component = NodePath("HealthComponent")
+movement_component = NodePath("MovementComponent")
+hitbox_component = NodePath("HitboxComponent")
+leveling_system = NodePath("LevelingSystem")
+
+[node name="capbot_v3" parent="." instance=ExtResource("2_ubdfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40726864, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_nna18")
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("agent")]
+script = ExtResource("1_nna18")
+agent = NodePath("..")
+metadata/_custom_type_script = "uid://cp5smayj4d7tk"
+
+[node name="InputComponent" type="Node" parent="." node_paths=PackedStringArray("movement_component", "weapon_component", "agent")]
+script = ExtResource("2_xkt62")
+movement_component = NodePath("../MovementComponent")
+weapon_component = NodePath("../WeaponComponent")
+agent = NodePath("..")
+metadata/_custom_type_script = "uid://cy2accaijay7a"
+
+[node name="WeaponComponent" type="Node" parent="." node_paths=PackedStringArray("agent", "shoot_marker")]
+script = ExtResource("3_1hqif")
+agent = NodePath("..")
+shoot_marker = NodePath("../ShootMarker3D")
+bullet_left = ExtResource("6_kg6m1")
+bullet_right = ExtResource("6_fcvhq")
+metadata/_custom_type_script = "uid://c21525r5sh2uw"
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("6_843ns")
+core = ExtResource("8_r38wa")
+metadata/_custom_type_script = "uid://xy4w4mby7chk"
+
+[node name="HealthbarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_hf3gw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1899331, 0)
+health_component = NodePath("../HealthComponent")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("agent", "health_component") instance=ExtResource("7_s2ewj")]
+agent = NodePath("..")
+health_component = NodePath("../HealthComponent")
+show_feedback_labels = false
+
+[node name="ShootMarker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3082093, -0.9169744)
+
+[node name="BottomMarker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8964255, 0)
+
+[node name="LevelingSystem" parent="." node_paths=PackedStringArray("agent") instance=ExtResource("13_fcvhq")]
+agent = NodePath("..")
+level_up_effect_scene = ExtResource("14_r38wa")
+
+[node name="FollowingCameraComponent" parent="." instance=ExtResource("15_48llr")]
+
+[node name="PlayerUI" parent="." node_paths=PackedStringArray("player", "health_component", "weapon_component", "leveling_system") instance=ExtResource("12_ubdfs")]
+player = NodePath("..")
+health_component = NodePath("../HealthComponent")
+weapon_component = NodePath("../WeaponComponent")
+leveling_system = NodePath("../LevelingSystem")
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

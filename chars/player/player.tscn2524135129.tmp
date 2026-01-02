@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://hmwovwxii41u"]
+
+[ext_resource type="Script" uid="uid://cp5smayj4d7tk" path="res://components/movement_component.gd" id="1_nna18"]
+[ext_resource type="Script" uid="uid://cy2accaijay7a" path="res://components/input_component.gd" id="2_xkt62"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xkt62"]
+size = Vector3(0.3, 0.3, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a2j8h"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nna18"]
+radius = 0.3
+height = 1.8
+
+[node name="Player" type="CharacterBody3D"]
+
+[node name="GunMeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.4)
+mesh = SubResource("BoxMesh_xkt62")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_a2j8h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_nna18")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 10, 3)
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("agent")]
+script = ExtResource("1_nna18")
+agent = NodePath("..")
+metadata/_custom_type_script = "uid://cp5smayj4d7tk"
+
+[node name="InputComponent" type="Node" parent="." node_paths=PackedStringArray("movement_component")]
+script = ExtResource("2_xkt62")
+movement_component = NodePath("../MovementComponent")
+metadata/_custom_type_script = "uid://cy2accaijay7a"

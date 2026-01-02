@@ -1,0 +1,57 @@
+[gd_scene load_steps=11 format=3 uid="uid://cm1wvd7fofm1h"]
+
+[ext_resource type="Script" uid="uid://coe5vkdomppql" path="res://weapons/tertiary/landmines/explosive_landmine/explosive_landmine_powerup.gd" id="1_s4jsd"]
+[ext_resource type="PackedScene" uid="uid://mo2tipsgjjkb" path="res://assets/landmines/explosive_landmine.blend" id="2_fcos2"]
+[ext_resource type="Script" uid="uid://duonlcq50v0pe" path="res://weapons/tertiary/tertiary_weapon_resource.gd" id="2_nebm4"]
+[ext_resource type="Texture2D" uid="uid://8vwhwui445xg" path="res://assets/misc/white_gradient_90deg_512x512.png" id="3_fcos2"]
+[ext_resource type="PackedScene" uid="uid://7a44xavkx6j1" path="res://weapons/tertiary/landmines/explosive_landmine/explosive_landmine.tscn" id="4_t2f6d"]
+
+[sub_resource type="Resource" id="Resource_fc011"]
+script = ExtResource("2_nebm4")
+weapon_name = "Explosive Landmine"
+weapon_scene = ExtResource("4_t2f6d")
+weapon_powerup_scene = null
+weapon_model = ExtResource("2_fcos2")
+metadata/_custom_type_script = "uid://duonlcq50v0pe"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vkwtr"]
+size = Vector3(0.4, 1, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s4jsd"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_fcos2")
+emission_enabled = true
+emission = Color(0.45862895, 0.8735711, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fcos2"]
+material = SubResource("StandardMaterial3D_s4jsd")
+top_radius = 0.3
+bottom_radius = 0.3
+height = 3.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fcos2"]
+
+[node name="ExplosiveLandminePowerup" type="CharacterBody3D"]
+collision_layer = 0
+script = ExtResource("1_s4jsd")
+landmine_resource = SubResource("Resource_fc011")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_vkwtr")
+
+[node name="explosive_landmine" parent="." instance=ExtResource("2_fcos2")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0902805, 0)
+mesh = SubResource("CylinderMesh_fcos2")
+
+[node name="ContactDetector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ContactDetector"]
+shape = SubResource("BoxShape3D_fcos2")
+
+[connection signal="body_entered" from="ContactDetector" to="." method="_on_contact_detector_body_entered"]

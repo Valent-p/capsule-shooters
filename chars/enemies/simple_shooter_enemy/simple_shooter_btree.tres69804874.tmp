@@ -1,0 +1,37 @@
+[gd_resource type="BehaviorTree" load_steps=13 format=3 uid="uid://6phs3pgg4188"]
+
+[ext_resource type="Script" uid="uid://bhe22w25ra6fj" path="res://ai/tasks/shooting/pshoot.gd" id="1_c4uab"]
+[ext_resource type="Script" uid="uid://bp0narokvusru" path="res://ai/tasks/sensing/always_set_target_to_player.gd" id="1_ytqfx"]
+[ext_resource type="Script" uid="uid://cdd03gcrv7sbd" path="res://ai/tasks/is_target_in_range.gd" id="2_gauob"]
+[ext_resource type="Script" uid="uid://dm2s42j330w1i" path="res://ai/tasks/movement/follow_target.gd" id="3_xhbpa"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_bobqu"]
+var/target/name = &"target"
+var/target/type = 24
+var/target/hint = 34
+var/target/hint_string = ""
+
+[sub_resource type="BTAction" id="BTAction_xhbpa"]
+script = ExtResource("1_ytqfx")
+
+[sub_resource type="BTCondition" id="BTCondition_kjoax"]
+script = ExtResource("2_gauob")
+
+[sub_resource type="BTAction" id="BTAction_ytqfx"]
+script = ExtResource("1_c4uab")
+
+[sub_resource type="BTSequence" id="BTSequence_ytqfx"]
+children = [SubResource("BTAction_xhbpa"), SubResource("BTCondition_kjoax"), SubResource("BTAction_ytqfx")]
+
+[sub_resource type="BTAction" id="BTAction_gauob"]
+script = ExtResource("3_xhbpa")
+
+[sub_resource type="BTSequence" id="BTSequence_kjoax"]
+children = [SubResource("BTAction_gauob")]
+
+[sub_resource type="BTSelector" id="BTSelector_c4uab"]
+children = [SubResource("BTSequence_ytqfx"), SubResource("BTSequence_kjoax")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_bobqu")
+root_task = SubResource("BTSelector_c4uab")

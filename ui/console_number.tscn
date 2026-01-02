@@ -1,0 +1,173 @@
+[gd_scene load_steps=5 format=3 uid="uid://d30jp7jjp1o3u"]
+
+[ext_resource type="Script" uid="uid://lkxp2oklrdey" path="res://ui/console_number.gd" id="1_bgc13"]
+[ext_resource type="FontFile" uid="uid://du8g6aea8hk4o" path="res://assets/fonts/xirod/Xirod.otf" id="1_ds7r7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ds7r7"]
+bg_color = Color(0.24115604, 0.24115607, 0.24115595, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bgc13"]
+font = ExtResource("1_ds7r7")
+font_size = 48
+
+[node name="ConsoleNumber" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bgc13")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(400, 600)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ds7r7")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ScreenLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "12345678"
+label_settings = SubResource("LabelSettings_bgc13")
+horizontal_alignment = 2
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="Button01" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_ds7r7")
+theme_override_font_sizes/font_size = 72
+text = "1"
+
+[node name="Button02" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_ds7r7")
+theme_override_font_sizes/font_size = 72
+text = "2"
+
+[node name="Button03" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_ds7r7")
+theme_override_font_sizes/font_size = 72
+text = "3"
+
+[node name="Button04" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_ds7r7")
+theme_override_font_sizes/font_size = 72
+text = "4"
+
+[node name="Button05" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_ds7r7")
+theme_override_font_sizes/font_size = 72
+text = "5"
+
+[node name="Button06" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_ds7r7")
+theme_override_font_sizes/font_size = 72
+text = "6"
+
+[node name="Button07" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_ds7r7")
+theme_override_font_sizes/font_size = 72
+text = "7"
+
+[node name="Button08" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_ds7r7")
+theme_override_font_sizes/font_size = 72
+text = "8"
+
+[node name="Button09" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_ds7r7")
+theme_override_font_sizes/font_size = 72
+text = "9"
+
+[node name="Button00" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_ds7r7")
+theme_override_font_sizes/font_size = 72
+text = "0"
+
+[node name="ButtonD" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_ds7r7")
+theme_override_font_sizes/font_size = 72
+text = "<-"
+
+[node name="ButtonE" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_ds7r7")
+theme_override_font_sizes/font_size = 72
+text = "E"
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Button01" to="." method="_on_button_01_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Button02" to="." method="_on_button_02_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Button03" to="." method="_on_button_03_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Button04" to="." method="_on_button_04_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Button05" to="." method="_on_button_05_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Button06" to="." method="_on_button_06_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Button07" to="." method="_on_button_07_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Button08" to="." method="_on_button_08_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Button09" to="." method="_on_button_09_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Button00" to="." method="_on_button_00_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/ButtonD" to="." method="_on_button_d_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/ButtonE" to="." method="_on_button_e_pressed"]

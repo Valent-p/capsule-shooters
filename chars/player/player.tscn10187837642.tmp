@@ -1,0 +1,70 @@
+[gd_scene load_steps=13 format=3 uid="uid://hmwovwxii41u"]
+
+[ext_resource type="Script" uid="uid://cp5smayj4d7tk" path="res://components/movement_component.gd" id="1_nna18"]
+[ext_resource type="Script" uid="uid://cy2accaijay7a" path="res://components/input_component.gd" id="2_xkt62"]
+[ext_resource type="Script" uid="uid://c21525r5sh2uw" path="res://components/weapon_component/weapon_component.gd" id="3_1hqif"]
+[ext_resource type="PackedScene" uid="uid://dr8j4rvlsxtja" path="res://projectiles/projectile.tscn" id="4_gna3e"]
+[ext_resource type="Script" uid="uid://c01v2grcdmohh" path="res://components/weapon_component/weapon_resource.gd" id="5_s2ewj"]
+[ext_resource type="PackedScene" uid="uid://dy1tm5ujw2fp3" path="res://components/following_cameras_component/following_camera_component.tscn" id="6_gna3e"]
+[ext_resource type="PackedScene" uid="uid://xt7cx1mn6fqj" path="res://components/hitbox_component/hitbox_component.tscn" id="7_s2ewj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xkt62"]
+size = Vector3(0.3, 0.3, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a2j8h"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nna18"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="Resource" id="Resource_843ns"]
+script = ExtResource("5_s2ewj")
+projectile_scene = ExtResource("4_gna3e")
+metadata/_custom_type_script = "uid://c01v2grcdmohh"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_843ns"]
+radius = 0.3
+height = 1.8
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="GunMeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.4)
+mesh = SubResource("BoxMesh_xkt62")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_a2j8h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_nna18")
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("agent")]
+script = ExtResource("1_nna18")
+agent = NodePath("..")
+metadata/_custom_type_script = "uid://cp5smayj4d7tk"
+
+[node name="InputComponent" type="Node" parent="." node_paths=PackedStringArray("movement_component", "weapon_component", "agent")]
+script = ExtResource("2_xkt62")
+movement_component = NodePath("../MovementComponent")
+weapon_component = NodePath("../WeaponComponent")
+agent = NodePath("..")
+metadata/_custom_type_script = "uid://cy2accaijay7a"
+
+[node name="WeaponComponent" type="Node" parent="." node_paths=PackedStringArray("agent")]
+script = ExtResource("3_1hqif")
+agent = NodePath("..")
+weapon_resource = SubResource("Resource_843ns")
+metadata/_custom_type_script = "uid://c21525r5sh2uw"
+
+[node name="FollowingCameraComponent" parent="." node_paths=PackedStringArray("agent") instance=ExtResource("6_gna3e")]
+agent = NodePath("..")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("7_s2ewj")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("CapsuleShape3D_843ns")
+debug_color = Color(0.89882326, 0.23274922, 0.5383977, 0.41960785)

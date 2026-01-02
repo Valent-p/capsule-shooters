@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CoreItemData" load_steps=3 format=3 uid="uid://jjxdrbhvyle0"]
+
+[ext_resource type="Texture2D" uid="uid://nfh4rj3rqb8c" path="res://icon.svg" id="1_1hjhg"]
+[ext_resource type="Script" uid="uid://dfeby8ofd574w" path="res://items/equippable/core/core_item_data.gd" id="1_03483"]
+
+[resource]
+script = ExtResource("1_03483")
+health = 100
+item_name = "Mini Core"
+icon = ExtResource("1_1hjhg")
+metadata/_custom_type_script = "uid://dfeby8ofd574w"

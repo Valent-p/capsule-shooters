@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://chgcibuwgijap"]
+
+[ext_resource type="Script" uid="uid://be1el1ddki3kb" path="res://items/equippable/bullet/projectiles/projectile.gd" id="1_ii83b"]
+[ext_resource type="PackedScene" uid="uid://dft2mkhuypy17" path="res://items/equippable/bullet/projectiles/projectile_hit_particles.tscn" id="2_bjc4u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wrf7x"]
+emission_enabled = true
+emission = Color(0.9260355, 0.29399192, 1.92523e-07, 1)
+emission_energy_multiplier = 20.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wrf7x"]
+material = SubResource("StandardMaterial3D_wrf7x")
+radius = 0.063
+height = 0.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ighsu"]
+radius = 0.125
+height = 0.5
+
+[node name="SmallProjectile" type="RigidBody3D"]
+collision_layer = 0
+collision_mask = 3
+gravity_scale = 0.0
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_ii83b")
+particles_scene = ExtResource("2_bjc4u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_wrf7x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_ighsu")
+
+[node name="RemoveTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

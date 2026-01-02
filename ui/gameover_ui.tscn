@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkecy8m75mvgq"]
+
+[ext_resource type="Script" uid="uid://dolf58kgljmha" path="res://ui/gameover_ui.gd" id="1_4f04i"]
+[ext_resource type="FontFile" uid="uid://c7vxohdnq87sk" path="res://assets/fonts/you-re-gone/Youre Gone.otf" id="2_137ay"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ud2uq"]
+font = ExtResource("2_137ay")
+font_size = 128
+
+[node name="GameoverUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_behavior_recursive = 1
+mouse_default_cursor_shape = 8
+script = ExtResource("1_4f04i")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+text = "You are out!"
+label_settings = SubResource("LabelSettings_ud2uq")
+horizontal_alignment = 1
+vertical_alignment = 1

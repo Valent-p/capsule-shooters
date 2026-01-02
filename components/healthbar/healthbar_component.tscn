@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://njik044oxy4u"]
+
+[ext_resource type="Script" uid="uid://b46cwnax2q166" path="res://components/healthbar/healthbar_component.gd" id="1_jcabu"]
+
+[node name="HealthbarComponent" type="Node3D"]
+script = ExtResource("1_jcabu")
+
+[node name="Label3D" type="Label3D" parent="."]
+pixel_size = 0.0001
+billboard = 1
+modulate = Color(1, 0.078431375, 0, 1)
+text = "Healthbar"
+font_size = 72

@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cd05hsul4h3j3"]
+
+[ext_resource type="Script" uid="uid://dvb87pobb7i8c" path="res://items/equippable/throwable/landmines/explosive_landmine/explosive_landmine.gd" id="1_3xb4r"]
+[ext_resource type="PackedScene" uid="uid://mo2tipsgjjkb" path="res://assets/landmines/explosive_landmine.blend" id="2_4r7rj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qkat8"]
+size = Vector3(0.6, 0.3, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_21sny"]
+size = Vector3(2, 0.2, 2)
+
+[node name="ExplosiveLandmine" type="RigidBody3D"]
+collision_layer = 0
+collision_mask = 3
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_3xb4r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0018554702, 0)
+shape = SubResource("BoxShape3D_qkat8")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("BoxShape3D_21sny")
+
+[node name="explosive_landmine" parent="." instance=ExtResource("2_4r7rj")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

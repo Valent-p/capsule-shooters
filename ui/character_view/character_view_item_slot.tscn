@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://do3efr0yigr2h"]
+
+[ext_resource type="Script" uid="uid://bguyjtqqquj4f" path="res://ui/character_view/character_view_item_slot.gd" id="1_b5d6h"]
+[ext_resource type="Texture2D" uid="uid://j7ibia8vvko8" path="res://assets/items/bullets/bullet.png" id="2_ri7ba"]
+
+[node name="CharacterViewItemSlot" type="Button"]
+custom_minimum_size = Vector2(80, 80)
+script = ExtResource("1_b5d6h")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_ri7ba")
+expand_mode = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

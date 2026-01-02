@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BulletItemData" load_steps=4 format=3 uid="uid://cxewlw674pl5l"]
+
+[ext_resource type="Texture2D" uid="uid://mayrw6s2c8or" path="res://assets/misc/black_gradient_90deg_512x512.png" id="1_yqwbf"]
+[ext_resource type="Script" uid="uid://bnrtkettmgc0n" path="res://items/equippable/bullet/bullet_item_data.gd" id="3_kf0ak"]
+[ext_resource type="PackedScene" uid="uid://chgcibuwgijap" path="res://items/equippable/bullet/projectiles/small_projectile.tscn" id="3_yqwbf"]
+
+[resource]
+script = ExtResource("3_kf0ak")
+speed = 50.0
+item_name = "Faster Bullet"
+icon = ExtResource("1_yqwbf")
+use_scene = ExtResource("3_yqwbf")
+item_description = "A simple bullet but faster."
+metadata/_custom_type_script = "uid://bnrtkettmgc0n"

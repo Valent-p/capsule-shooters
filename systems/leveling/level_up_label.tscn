@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsqeyvuirahij"]
+
+[ext_resource type="FontFile" uid="uid://g6d0cwqdgk6g" path="res://assets/fonts/good-timing/good timing bd.otf" id="1_c5qk2"]
+[ext_resource type="Script" uid="uid://cry4n2a56pr86" path="res://systems/leveling/level_up_label.gd" id="2_4in11"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1lmo7"]
+font = ExtResource("1_c5qk2")
+font_size = 72
+
+[sub_resource type="Curve" id="Curve_4in11"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.630597, 0.8910506), -1.0814235, -1.0814235, 0, 0, Vector2(0.8768656, 0.33073932), 3.244271, 3.244271, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[node name="LevelUpLabel" type="Label"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Level Up!
+2"
+label_settings = SubResource("LabelSettings_1lmo7")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_4in11")
+scale_curve = SubResource("Curve_4in11")
