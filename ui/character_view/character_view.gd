@@ -4,12 +4,16 @@ extends Control
 
 var player_data: PlayerSaveData
 
+var _active_equipped_slot: Button = null
+var active_available_slot: CharacterViewItemSlot = null
+
+# Use property with setter/getter to avoid recursion
 var active_equipped_slot: Button:
 	set(value):
-		active_equipped_slot = value
+		_active_equipped_slot = value
 		active_available_slot = null
-
-var active_available_slot: CharacterViewItemSlot
+	get:
+		return _active_equipped_slot
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -63,6 +67,7 @@ func show_available_throwable_items(is_right: bool):
 	## Clear
 	for child in %ThrowableAvailableItems.get_children():
 		%ThrowableAvailableItems.remove_child(child)
+		child.queue_free()
 	
 	## Load and display
 	for data in GameManager.items_manager.throwable_items:
@@ -86,6 +91,7 @@ func show_available_bullet_items(is_right: bool):
 	## Clear
 	for child in %BulletAvailableItems.get_children():
 		%BulletAvailableItems.remove_child(child)
+		child.queue_free()
 	
 	# Description
 	%EquippedRichTextLabel.text = "" # Clear
@@ -110,13 +116,18 @@ func _on_available_bullet_item_selected(slot: CharacterViewItemSlot) -> void:
 ## Compare two numbers, the returns the difference in BBCode.
 ## NOTE: one value from active selected, and another value is taken from active equipped
 func compare_active_bullets(prop: StringName) -> String:
-	var active_equipped_data
+	if not active_equipped_slot or not active_available_slot or not player_data:
+		return ""
+	var active_equipped_data = null
 	if active_equipped_slot == %EquipCL:
 		active_equipped_data = player_data.bullet_left
-	else:
+	elif active_equipped_slot == %EquipCR:
 		active_equipped_data = player_data.bullet_right
-		
-	var dif = active_available_slot.item_data[prop] - active_equipped_data[prop]
+	if not active_equipped_data or not active_available_slot.item_data:
+		return ""
+	var dif = 0
+	if prop in active_available_slot.item_data and prop in active_equipped_data:
+		dif = active_available_slot.item_data[prop] - active_equipped_data[prop]
 	if dif < 0: # negative
 		return "[color=red](%d)[/color]" % dif
 	elif dif == 0: # equal
@@ -127,13 +138,18 @@ func compare_active_bullets(prop: StringName) -> String:
 ## Compare two numbers, the returns the difference in BBCode.
 ## NOTE: one value from active selected, and another value is taken from active equipped
 func compare_active_throwables(prop: StringName) -> String:
-	var active_equipped_data
+	if not active_equipped_slot or not active_available_slot or not player_data:
+		return ""
+	var active_equipped_data = null
 	if active_equipped_slot == %EquipTL:
 		active_equipped_data = player_data.throwable_left
-	else:
+	elif active_equipped_slot == %EquipTR:
 		active_equipped_data = player_data.throwable_right
-		
-	var dif = active_available_slot.item_data[prop] - active_equipped_data[prop]
+	if not active_equipped_data or not active_available_slot.item_data:
+		return ""
+	var dif = 0
+	if prop in active_available_slot.item_data and prop in active_equipped_data:
+		dif = active_available_slot.item_data[prop] - active_equipped_data[prop]
 	if dif < 0: # negative
 		return "[color=red](%d)[/color]" % dif
 	elif dif == 0: # equal
@@ -163,7 +179,7 @@ func _get_bullet_description(title:String, item: BulletItemData, compare: bool =
 	# Stats
 	if compare:
 		retval += "Max Charges: %s units %s\n" % [str(item.max_charge), compare_active_bullets("max_charge")]
-		retval += "Recharge Speed: 1 per %s seconds %s\n" % [str(item.recharge_speed), compare_active_bullets("recharge_speed")]
+		retval += "Recharge Time: %s seconds %s\n" % [str(item.recharge_speed), compare_active_bullets("recharge_speed")]
 		retval += "Shoot Delay: %s seconds %s\n" % [str(item.shoot_delay), compare_active_bullets("shoot_delay")]
 		retval += "Speed: %s units/second %s\n" % [str(int(item.speed)), compare_active_bullets("speed")]
 		retval += "Damage: %s %s\n" % [str(item.damage), compare_active_bullets("damage")]
@@ -193,25 +209,25 @@ func _on_equip_cr_pressed() -> void:
 	show_available_bullet_items(true)
 
 func _on_equip_button_pressed() -> void:
-	if active_available_slot and active_equipped_slot:
-		if active_equipped_slot == %EquipCL:
-			player_data.bullet_left = active_available_slot.item_data
-		elif active_equipped_slot == %EquipCR:
-			player_data.bullet_right = active_available_slot.item_data
-		elif active_equipped_slot == %EquipTL:
-			player_data.throwable_left = active_available_slot.item_data
-		elif active_equipped_slot == %EquipTR:
-			player_data.throwable_right = active_available_slot.item_data
-		else:
-			GlobalLogger.err("Unknown slot: ", active_available_slot)
-			
-		# Save
-		SaveManager.save_player(player_data)
-		GlobalLogger.info("_on_swap_button_pressed: Swapped")
-		# Refresh UI
-		_setup()
-	else:
+	if not active_available_slot or not active_equipped_slot or not player_data:
 		GlobalLogger.info("_on_swap_button_pressed: Didnt select both, ignoring...")
+		return
+	if active_equipped_slot == %EquipCL:
+		player_data.bullet_left = active_available_slot.item_data
+	elif active_equipped_slot == %EquipCR:
+		player_data.bullet_right = active_available_slot.item_data
+	elif active_equipped_slot == %EquipTL:
+		player_data.throwable_left = active_available_slot.item_data
+	elif active_equipped_slot == %EquipTR:
+		player_data.throwable_right = active_available_slot.item_data
+	else:
+		GlobalLogger.err("Unknown slot: ", active_equipped_slot)
+		return
+	# Save
+	SaveManager.save_player(player_data)
+	GlobalLogger.info("_on_swap_button_pressed: Swapped")
+	# Refresh UI
+	_setup()
 
 
 func _on_back_button_pressed() -> void:

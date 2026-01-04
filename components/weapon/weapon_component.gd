@@ -27,6 +27,10 @@ signal charge_changed(current_charge: int, max_charge: int, is_right: bool)
 signal throwable_count_changed(current_count:int, is_right: bool)
 
 func _ready() -> void:
+	assert(agent != null, "WeaponComponent: agent is required!")
+	assert(shoot_marker != null, "WeaponComponent: shoot_marker is required!")
+	assert(bullet_left != null, "WeaponComponent: bullet_left is required!")
+	assert(bullet_right != null, "WeaponComponent: bullet_right is required!")
 	l_current_charge = bullet_left.max_charge
 	r_current_charge = bullet_right.max_charge
 

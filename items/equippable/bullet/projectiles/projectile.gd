@@ -11,6 +11,7 @@ var damage: float
 var timer: float = 3.0 # seconnds
 
 func _ready() -> void:
+	assert(particles_scene != null, "Projectile: particles_scene is required!")
 	# In case didnt hit anything
 	linear_velocity = -transform.basis.z * speed
 

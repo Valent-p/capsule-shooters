@@ -1,7 +1,11 @@
 extends Character
 class_name Player
 
+
 @export var input_component: InputComponent
+
+func _ready() -> void:
+	assert(input_component != null, "Player: input_component is required!")
 
 func _enter_tree() -> void:
 	# Overwrite initials, if there is a save

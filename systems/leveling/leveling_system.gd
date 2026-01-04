@@ -17,7 +17,10 @@ var prev_level_up_xp: int = 0
 signal leveled_up(current_level: int, current_xp: int, prev_level_up_xp:int, next_level_up_xp: int)
 signal xp_changed(current_xp: int, current_level, prev_level_up_xp:int, next_level_up_xp: int)
 
+
 func _ready() -> void:
+	assert(agent != null, "LevelingSystem: agent is required!")
+	assert(level_up_effect_scene != null, "LevelingSystem: level_up_effect_scene is required!")
 	## Load saved data, if we have a saved file
 	var player_data = SaveManager.load_player()
 	if player_data:

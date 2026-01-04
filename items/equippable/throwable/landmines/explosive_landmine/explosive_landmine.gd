@@ -7,6 +7,7 @@ class_name ExplosiveLandmine
 var has_exploded:bool = false
 
 func _ready() -> void:
+	assert(explosion_scn != null, "ExplosiveLandmine: explosion_scn is required!")
 	GlobalLogger.info("ExplosiveLandmine._ready: Landmine is active. By ", agent)
 
 func _on_body_entered(body: Node3D) -> void:

@@ -6,8 +6,11 @@ class_name InputComponent
 @export var weapon_component: WeaponComponent
 @export var agent: CharacterBody3D
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
+	assert(movement_component != null, "InputComponent: movement_component is required!")
+	assert(weapon_component != null, "InputComponent: weapon_component is required!")
+	assert(agent != null, "InputComponent: agent is required!")
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

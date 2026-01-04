@@ -10,8 +10,14 @@ extends Node
 
 var player: Player
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
+	assert(items_manager != null, "GameManager: items_manager is required!")
+	assert(main_menu_scene != null, "GameManager: main_menu_scene is required!")
+	assert(new_game_scene != null, "GameManager: new_game_scene is required!")
+	assert(game_over_scene != null, "GameManager: game_over_scene is required!")
+	assert(console_number_scene != null, "GameManager: console_number_scene is required!")
+	assert(character_view_scene != null, "GameManager: character_view_scene is required!")
 	## Try to load
 	var loaded_player_save_data = SaveManager.load_player()
 	## Loaded

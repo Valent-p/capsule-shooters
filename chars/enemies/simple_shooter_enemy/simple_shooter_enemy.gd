@@ -3,8 +3,13 @@ extends Enemy
 #@onready var powerup_scene:= preload("res://landmines/explosive_landmine/explosive_landmine_powerup.tscn")
 
 @export_group("LimboAI Requirements")
+
 @export var nav_agent: NavigationAgent3D
 @export var sight_check_raycast: RayCast3D
+
+func _ready() -> void:
+	assert(nav_agent != null, "SimpleShooterEnemy: nav_agent is required!")
+	assert(sight_check_raycast != null, "SimpleShooterEnemy: sight_check_raycast is required!")
 
 func _on_health_component_died() -> void:
 	#print("DIED ", self)

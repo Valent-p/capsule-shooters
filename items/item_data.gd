@@ -21,4 +21,8 @@ var agent: Character
 ## The scene when instantiated, if "use" cmd is made
 @export var use_scene: PackedScene
 
+func _init() -> void:
+	assert(model != null, "ItemData: model is required!")
+	assert(use_scene != null, "ItemData: use_scene is required!")
+
 @export_multiline var item_description: String

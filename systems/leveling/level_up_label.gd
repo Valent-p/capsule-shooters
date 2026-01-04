@@ -6,8 +6,10 @@ var level_up_timer: float = 0.0
 ## Use in PlayerUI, and assign the player_ui
 @export var player_ui: PlayerUI
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
+	assert(player_ui != null, "LevelUpLabel: player_ui is required!")
+	assert(scale_curve != null, "LevelUpLabel: scale_curve is required!")
 	player_ui.leveling_system.leveled_up.connect(_on_leveled_up)
 
 func _process(delta: float) -> void:

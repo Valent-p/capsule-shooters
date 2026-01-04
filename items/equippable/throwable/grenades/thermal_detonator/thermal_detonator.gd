@@ -9,6 +9,10 @@ var has_exploded:bool = false
 ## Timer for explosion
 var timer: float = 10.0 # seconds to explode
 
+
+func _ready() -> void:
+	assert(explosion_scn != null, "ThermalDetonator: explosion_scn is required!")
+
 func _process(delta: float) -> void:
 	timer -= delta
 	if timer <= 0.0:

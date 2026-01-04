@@ -9,6 +9,11 @@ var active_labels_pool = []
 var free_labels_pool = []
 var label_max_lifetime := 1.0
 
+
+func _ready() -> void:
+	assert(agent != null, "HitboxComponent: agent is required!")
+	assert(health_component != null, "HitboxComponent: health_component is required!")
+
 func _process(delta: float) -> void:
 	# Update
 	if show_feedback_labels:

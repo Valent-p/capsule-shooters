@@ -5,6 +5,7 @@ signal done
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	assert(%ScreenLabel != null, "ConsoleNumber: %ScreenLabel is required!")
 	%ScreenLabel.text = ""
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

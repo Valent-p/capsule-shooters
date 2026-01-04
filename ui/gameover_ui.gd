@@ -1,6 +1,7 @@
 extends Control
 
 func _ready() -> void:
+	assert($CenterContainer != null, "GameOverUI: $CenterContainer is required!")
 	$CenterContainer.scale = Vector2(.2, .2)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

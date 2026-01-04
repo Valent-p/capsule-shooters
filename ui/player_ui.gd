@@ -11,16 +11,22 @@ var tertiary_item_template: Control
 @onready var default_font: Font = ThemeDB.fallback_font
 @onready var default_font_size: int = ThemeDB.fallback_font_size
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	assert(player != null, "PlayerUI: player is required!")
+	assert(health_component != null, "PlayerUI: health_component is required!")
+	assert(weapon_component != null, "PlayerUI: weapon_component is required!")
+	assert(leveling_system != null, "PlayerUI: leveling_system is required!")
+	assert(%LeftThrowableItem != null, "PlayerUI: %LeftThrowableItem is required!")
+	assert(%RightThrowableItem != null, "PlayerUI: %RightThrowableItem is required!")
+	assert(%LevelProgressLabel != null, "PlayerUI: %LevelProgressLabel is required!")
+	assert(%LevelProgressBar != null, "PlayerUI: %LevelProgressBar is required!")
+	assert(%HealthBar != null, "PlayerUI: %HealthBar is required!")
+	assert(%RChargeBar != null, "PlayerUI: %RChargeBar is required!")
 	weapon_component.charge_changed.connect(_on_charge_changed)
 	weapon_component.throwable_count_changed.connect(_on_throwable_count_changed)
-	
 	health_component.health_changed.connect(_on_health_changed)
-	
 	leveling_system.leveled_up.connect(_on_leveled_up)
 	leveling_system.xp_changed.connect(_on_xp_changed)
-	
 	## initials
 	_on_charge_changed(weapon_component.bullet_left.max_charge, weapon_component.bullet_left.max_charge, false)
 	_on_charge_changed(weapon_component.bullet_right.max_charge, weapon_component.bullet_right.max_charge, true)
@@ -28,10 +34,8 @@ func _ready() -> void:
 		%LeftThrowableItem.get_child(2).texture = weapon_component.throwable_left.icon
 	if is_instance_valid(weapon_component.throwable_right):
 		%RightThrowableItem.get_child(2).texture = weapon_component.throwable_right.icon
-		
 	_on_throwable_count_changed(weapon_component.throwable_left_count, false)
 	_on_throwable_count_changed(weapon_component.throwable_right_count, true)
-	
 	_on_leveled_up(leveling_system.current_level, leveling_system.current_xp, leveling_system.prev_level_up_xp, leveling_system.next_level_up_xp)
 	_on_health_changed(health_component.current_health, health_component.core.health)
 

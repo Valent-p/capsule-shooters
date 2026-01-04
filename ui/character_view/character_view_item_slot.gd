@@ -13,9 +13,10 @@ func _enter_tree() -> void:
 	_setup()
 
 func _setup():
+	assert(item_data != null, "CharacterViewItemSlot: item_data is required!")
+	assert($TextureRect != null, "CharacterViewItemSlot: $TextureRect is required!")
 	if not is_instance_valid(item_data):
 		return
-		
 	size = slot_size
 	$TextureRect.texture = item_data.icon
 

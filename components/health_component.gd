@@ -22,5 +22,6 @@ var current_health: int:
 		health_changed.emit(current_health, core.health)
 		
 func _ready() -> void:
+	assert(core != null, "HealthComponent: core is required!")
 	current_health = core.health
 	has_died = false
