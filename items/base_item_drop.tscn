@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dfsyuykkbh5je"]
 
 [ext_resource type="Script" uid="uid://iqd847orfmm1" path="res://items/base_item_drop.gd" id="1_oaaji"]
-[ext_resource type="PackedScene" uid="uid://mo2tipsgjjkb" path="res://assets/landmines/explosive_landmine.blend" id="3_qoajv"]
+[ext_resource type="PackedScene" uid="uid://mo2tipsgjjkb" path="res://assets/items/throwables/explosive_landmine.blend" id="3_qoajv"]
 [ext_resource type="Texture2D" uid="uid://8vwhwui445xg" path="res://assets/misc/white_gradient_90deg_512x512.png" id="5_fl5u7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vkwtr"]

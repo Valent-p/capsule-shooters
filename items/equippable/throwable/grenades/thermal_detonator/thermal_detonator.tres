@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ThrowableItemData" load_steps=5 format=3 uid="uid://bmegcvb0v8i4"]
+
+[ext_resource type="Script" uid="uid://ci1lhwkuvh3c2" path="res://items/equippable/throwable/throwable_item_data.gd" id="1_47qqm"]
+[ext_resource type="Texture2D" uid="uid://u434g60kwxn5" path="res://assets/items/throwables/thermal_detonator_icon_512x512.png" id="1_bqxtg"]
+[ext_resource type="PackedScene" uid="uid://btv3egoi1aug5" path="res://assets/items/throwables/thermal_detonator.blend" id="2_sor5h"]
+[ext_resource type="PackedScene" uid="uid://srpe4wpg3wxv" path="res://items/equippable/throwable/grenades/thermal_detonator/thermal_detonator.tscn" id="4_yimw0"]
+
+[resource]
+script = ExtResource("1_47qqm")
+throw_impulse = 10.0
+damage = 50
+item_name = "Thermal Detornator"
+icon = ExtResource("1_bqxtg")
+model = ExtResource("2_sor5h")
+use_scene = ExtResource("4_yimw0")
+item_description = "A grenade that explodes upon hitting the an object."
+metadata/_custom_type_script = "uid://ci1lhwkuvh3c2"

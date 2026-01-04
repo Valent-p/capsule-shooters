@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://hmwovwxii41u"]
+[gd_scene load_steps=18 format=3 uid="uid://hmwovwxii41u"]
 
 [ext_resource type="Script" uid="uid://kufxxrxbcpwi" path="res://chars/player/player.gd" id="1_48llr"]
 [ext_resource type="Script" uid="uid://cp5smayj4d7tk" path="res://components/movement_component.gd" id="1_nna18"]
@@ -19,6 +19,9 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nna18"]
 radius = 0.3
 height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kg6m1"]
+radius = 0.3
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("input_component", "bottom_marker", "shoot_marker", "weapon_component", "health_component", "movement_component", "hitbox_component", "leveling_system") groups=["Player"]]
 collision_layer = 2
@@ -72,6 +75,10 @@ health_component = NodePath("../HealthComponent")
 agent = NodePath("..")
 health_component = NodePath("../HealthComponent")
 show_feedback_labels = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("CapsuleShape3D_kg6m1")
+debug_color = Color(0.97371656, 0, 0.43538627, 0.41960785)
 
 [node name="ShootMarker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3082093, -0.9169744)

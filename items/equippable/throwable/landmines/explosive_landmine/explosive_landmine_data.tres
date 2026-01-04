@@ -1,15 +1,16 @@
 [gd_resource type="Resource" script_class="ThrowableItemData" load_steps=5 format=3 uid="uid://b8m71w51i65hx"]
 
-[ext_resource type="Texture2D" uid="uid://1evlj2iffji5" path="res://assets/landmines/explosive_landmine_icon.png" id="1_77f1a"]
+[ext_resource type="Texture2D" uid="uid://b8cewg5ersg1j" path="res://assets/items/throwables/explosive_landmine_icon_512x512.png" id="1_ksqll"]
 [ext_resource type="Script" uid="uid://ci1lhwkuvh3c2" path="res://items/equippable/throwable/throwable_item_data.gd" id="1_xah2f"]
-[ext_resource type="PackedScene" uid="uid://mo2tipsgjjkb" path="res://assets/landmines/explosive_landmine.blend" id="2_i5r5x"]
+[ext_resource type="PackedScene" uid="uid://mo2tipsgjjkb" path="res://assets/items/throwables/explosive_landmine.blend" id="2_i5r5x"]
 [ext_resource type="PackedScene" uid="uid://cd05hsul4h3j3" path="res://items/equippable/throwable/landmines/explosive_landmine/explosive_landmine.tscn" id="4_578im"]
 
 [resource]
 script = ExtResource("1_xah2f")
+damage = 100
 item_name = "Explosive Landmine"
 group_size = 5
-icon = ExtResource("1_77f1a")
+icon = ExtResource("1_ksqll")
 model = ExtResource("2_i5r5x")
 use_scene = ExtResource("4_578im")
 metadata/_custom_type_script = "uid://ci1lhwkuvh3c2"

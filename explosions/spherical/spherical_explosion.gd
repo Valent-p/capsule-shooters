@@ -35,7 +35,6 @@ func _on_body_entered(_body: Node) -> void:
 	collision_layer = 0
 	collision_mask = 0
 
-## Scans only Hitboxes, set by the collision mask
 func _on_hit_area_3d_area_entered(area: Area3D) -> void:
 	# Avoid double hit as explosion takes some time
 	if area in hit_list:

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cd05hsul4h3j3"]
 
 [ext_resource type="Script" uid="uid://dvb87pobb7i8c" path="res://items/equippable/throwable/landmines/explosive_landmine/explosive_landmine.gd" id="1_3xb4r"]
-[ext_resource type="PackedScene" uid="uid://mo2tipsgjjkb" path="res://assets/landmines/explosive_landmine.blend" id="2_4r7rj"]
+[ext_resource type="PackedScene" uid="uid://mo2tipsgjjkb" path="res://assets/items/throwables/explosive_landmine.blend" id="2_4r7rj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qkat8"]
 size = Vector3(0.6, 0.3, 0.6)

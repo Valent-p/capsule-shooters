@@ -165,10 +165,12 @@ distance_fade_enabled = true
 [node name="HitArea3D" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 4
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.996788, 0)
 shape = SubResource("SphereShape3D_vyuip")
+debug_color = Color(0.9263895, 3.9467217e-05, 0.6745422, 0.41960785)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="HitArea3D" to="." method="_on_hit_area_3d_area_entered"]

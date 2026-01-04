@@ -52,9 +52,11 @@ func throw(is_right:bool):
 			throwable_right_count -= 1
 			throwable_count_changed.emit(throwable_right_count, true)
 			
-			var item = throwable_right.use_scene.instantiate()
+			var item: ThrowableItem = throwable_right.use_scene.instantiate()
 			item.position = agent.shoot_marker.global_position
 			item.agent = agent
+			item.damage = throwable_right.damage
+			item.apply_central_impulse(-agent.global_basis.z * throwable_right.throw_impulse)
 			get_tree().current_scene.add_child(item)
 			GlobalLogger.info("WeaponComponent.throw(right): DONE")
 		else:
@@ -67,6 +69,8 @@ func throw(is_right:bool):
 			var item = throwable_left.use_scene.instantiate()
 			item.position = agent.shoot_marker.global_position
 			item.agent = agent
+			item.damage = throwable_left.damage
+			item.apply_central_impulse(-agent.global_basis.z * throwable_left.throw_impulse)
 			get_tree().current_scene.add_child(item)
 			GlobalLogger.info("WeaponComponent.throw(left): DONE")
 		else:

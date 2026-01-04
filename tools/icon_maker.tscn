@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://bk4eqppamxbf4"]
+
+[ext_resource type="Script" uid="uid://dobe5nfgna12u" path="res://tools/icon_maker.gd" id="1_uipaq"]
+[ext_resource type="PackedScene" uid="uid://dr8j4rvlsxtja" path="res://items/equippable/bullet/projectiles/projectile.tscn" id="2_qcmu7"]
+
+[sub_resource type="Environment" id="Environment_qcmu7"]
+background_mode = 1
+background_color = Color(0.53333336, 0.53333336, 0.53333336, 1)
+glow_strength = 2.0
+
+[node name="IconMaker" type="SubViewport"]
+transparent_bg = true
+script = ExtResource("1_uipaq")
+model_scene = ExtResource("2_qcmu7")
+
+[node name="ModelContainer" type="Node3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 3, 3)
+projection = 1
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
+transform = Transform3D(0.96592593, -0.06698729, 0.25, 0, 0.9659257, 0.25881904, -0.25881907, -0.24999997, 0.93301266, 0, 0, 0)
+light_volumetric_fog_energy = 0.0
+shadow_enabled = true
+shadow_bias = 0.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qcmu7")
+
+[connection signal="body_entered" from="ModelContainer/Projectile" to="ModelContainer/Projectile" method="_on_body_entered"]

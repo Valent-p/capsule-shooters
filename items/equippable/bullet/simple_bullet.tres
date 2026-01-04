@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BulletItemData" load_steps=4 format=3 uid="uid://dnn21tbc3171c"]
 
 [ext_resource type="Script" uid="uid://bnrtkettmgc0n" path="res://items/equippable/bullet/bullet_item_data.gd" id="1_j51t7"]
-[ext_resource type="Texture2D" uid="uid://j7ibia8vvko8" path="res://assets/items/bullets/bullet.png" id="1_oypbc"]
+[ext_resource type="Texture2D" uid="uid://etbav8sjdtvn" path="res://items/equippable/bullet/projectiles/projectile_icon_512x512.png" id="1_oypbc"]
 [ext_resource type="PackedScene" uid="uid://dr8j4rvlsxtja" path="res://items/equippable/bullet/projectiles/projectile.tscn" id="2_puc81"]
 
 [resource]

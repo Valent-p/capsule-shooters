@@ -12,7 +12,7 @@ func _ready() -> void:
 func _on_body_entered(body: Node3D) -> void:
 	_on_detection_area_body_entered(body)
 
-func _explode(damage):
+func _explode():
 	has_exploded = true
 	var explosion = explosion_scn.instantiate()
 	explosion.position = global_position
@@ -31,4 +31,4 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 	
 	## Cant blast oneself; Maybe ;0
 	if self.agent != body:
-		_explode(50)
+		_explode()

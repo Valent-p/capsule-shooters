@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dr8j4rvlsxtja"]
+[gd_scene load_steps=7 format=3 uid="uid://dr8j4rvlsxtja"]
 
 [ext_resource type="Script" uid="uid://be1el1ddki3kb" path="res://items/equippable/bullet/projectiles/projectile.gd" id="1_wrf7x"]
 [ext_resource type="PackedScene" uid="uid://dft2mkhuypy17" path="res://items/equippable/bullet/projectiles/projectile_hit_particles.tscn" id="2_k5oy4"]
@@ -17,9 +17,12 @@ height = 0.5
 radius = 0.125
 height = 0.5
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k5oy4"]
+radius = 0.15
+height = 0.5
+
 [node name="Projectile" type="RigidBody3D"]
 collision_layer = 0
-collision_mask = 3
 input_ray_pickable = false
 gravity_scale = 0.0
 continuous_cd = true
@@ -36,9 +39,14 @@ mesh = SubResource("CapsuleMesh_wrf7x")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_ighsu")
 
-[node name="RemoveTimer" type="Timer" parent="."]
-wait_time = 3.0
-one_shot = true
-autostart = true
+[node name="Detector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Detector"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_k5oy4")
+debug_color = Color(0.9289317, 3.3787786e-05, 0.6647084, 0.41960785)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="Detector" to="." method="_on_detector_area_entered"]

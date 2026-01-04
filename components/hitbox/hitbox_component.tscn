@@ -2,5 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dyav0vcrkfb6q" path="res://components/hitbox/hitbox_component.gd" id="1_3t5pk"]
 
-[node name="HitboxComponent" type="Node3D"]
+[node name="HitboxComponent" type="Area3D"]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_3t5pk")

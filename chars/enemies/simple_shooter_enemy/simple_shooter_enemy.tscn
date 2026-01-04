@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://du2f51txplfil"]
+[gd_scene load_steps=15 format=3 uid="uid://du2f51txplfil"]
 
 [ext_resource type="Script" uid="uid://b00ejk3lv1fhi" path="res://chars/enemies/simple_shooter_enemy/simple_shooter_enemy.gd" id="1_l4l6i"]
 [ext_resource type="Script" uid="uid://cp5smayj4d7tk" path="res://components/movement_component.gd" id="2_5oufj"]
@@ -17,6 +17,9 @@ size = Vector3(0.3, 0.3, 1)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g034d"]
 radius = 0.3
 height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vicfj"]
+radius = 0.3
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_vicfj"]
 
@@ -59,6 +62,10 @@ metadata/_custom_type_script = "uid://c21525r5sh2uw"
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("agent", "health_component") instance=ExtResource("6_5oufj")]
 agent = NodePath("..")
 health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("CapsuleShape3D_vicfj")
+debug_color = Color(0.97371656, 0, 0.43538627, 0.41960785)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("7_m7rq4")
