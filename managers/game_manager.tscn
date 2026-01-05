@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cibeye1rsrqhv"]
+[gd_scene load_steps=8 format=3 uid="uid://cibeye1rsrqhv"]
 
 [ext_resource type="Script" uid="uid://crxjqsr2pkovo" path="res://managers/game_manager.gd" id="1_yhoon"]
 [ext_resource type="PackedScene" uid="uid://xi5ou2mueasm" path="res://ui/main_menu.tscn" id="2_8647g"]
 [ext_resource type="PackedScene" uid="uid://b6e5bqofwh1sc" path="res://levels/prototype_level.tscn" id="3_n15wl"]
 [ext_resource type="PackedScene" uid="uid://dkecy8m75mvgq" path="res://ui/gameover_ui.tscn" id="4_j7rj3"]
+[ext_resource type="PackedScene" uid="uid://d30jp7jjp1o3u" path="res://ui/console_number.tscn" id="5_b25so"]
 [ext_resource type="PackedScene" uid="uid://cauqfeg47np2u" path="res://ui/character_view/character_view.tscn" id="5_ou16m"]
 [ext_resource type="PackedScene" uid="uid://cbycma7xmk52p" path="res://managers/items_manager.tscn" id="6_yawit"]
 
@@ -14,6 +15,7 @@ items_manager = NodePath("ItemsManager")
 main_menu_scene = ExtResource("2_8647g")
 new_game_scene = ExtResource("3_n15wl")
 game_over_scene = ExtResource("4_j7rj3")
+console_number_scene = ExtResource("5_b25so")
 character_view_scene = ExtResource("5_ou16m")
 
 [node name="ItemsManager" parent="." instance=ExtResource("6_yawit")]

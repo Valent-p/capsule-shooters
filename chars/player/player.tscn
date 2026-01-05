@@ -90,7 +90,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8964255, 0)
 agent = NodePath("..")
 level_up_effect_scene = ExtResource("14_r38wa")
 
-[node name="FollowingCameraComponent" parent="." instance=ExtResource("15_48llr")]
+[node name="FollowingCameraComponent" parent="." node_paths=PackedStringArray("agent") instance=ExtResource("15_48llr")]
+agent = NodePath("..")
 
 [node name="PlayerUI" parent="." node_paths=PackedStringArray("player", "health_component", "weapon_component", "leveling_system") instance=ExtResource("12_ubdfs")]
 player = NodePath("..")

@@ -1,4 +1,4 @@
-class_name ItemData
+@abstract class_name ItemData
 extends Resource
 ## An item has three main actions on it: [br]
 ## - Can be picked (into inventory),
@@ -22,7 +22,8 @@ var agent: Character
 @export var use_scene: PackedScene
 
 func _init() -> void:
-	assert(model != null, "ItemData: model is required!")
-	assert(use_scene != null, "ItemData: use_scene is required!")
+	#assert(model != null, "ItemData: model is required!")
+	#assert(use_scene != null, "ItemData: use_scene is required!")
+	pass
 
 @export_multiline var item_description: String

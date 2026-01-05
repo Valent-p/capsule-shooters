@@ -12,6 +12,7 @@ var player: Player
 
 
 func _ready() -> void:
+	return
 	assert(items_manager != null, "GameManager: items_manager is required!")
 	assert(main_menu_scene != null, "GameManager: main_menu_scene is required!")
 	assert(new_game_scene != null, "GameManager: new_game_scene is required!")
