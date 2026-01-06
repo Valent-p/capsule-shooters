@@ -15,11 +15,11 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	agent.velocity = direction * speed
-    
+	
 	if not agent.is_on_floor():
 		agent.velocity += agent.get_gravity()
-    
+	
 	agent.move_and_slide()
-    
+	
 	# Reset to avoid continuous movement
 	direction = Vector3.ZERO

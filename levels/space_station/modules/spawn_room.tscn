@@ -1,0 +1,189 @@
+[gd_scene load_steps=14 format=3 uid="uid://ddu5t46qqs24j"]
+
+[ext_resource type="Texture2D" uid="uid://j7ibia8vvko8" path="res://assets/items/bullets/bullet.png" id="1_dxjaa"]
+[ext_resource type="PackedScene" uid="uid://hmwovwxii41u" path="res://chars/player/player.tscn" id="2_fk6cc"]
+[ext_resource type="PackedScene" uid="uid://cll8cdkq8xmdv" path="res://assets/env/space_station/floor_plain.blend" id="3_8kqwe"]
+[ext_resource type="PackedScene" uid="uid://djhcfho6pr8md" path="res://assets/env/space_station/wall_thin-middle.blend" id="4_8kqwe"]
+[ext_resource type="PackedScene" uid="uid://4txwqv6n476i" path="res://assets/env/space_station/wall_short_plane.blend" id="5_v8vca"]
+[ext_resource type="PackedScene" uid="uid://8cjuc4xdi13j" path="res://assets/env/space_station/crate_medium.blend" id="6_v8vca"]
+[ext_resource type="PackedScene" uid="uid://blmegymte785k" path="res://assets/env/space_station/capbot_pod.blend" id="7_ieymo"]
+[ext_resource type="PackedScene" uid="uid://6w2un25i221i" path="res://levels/space_station/modules/wall_bulb.tscn" id="8_b46mk"]
+[ext_resource type="PackedScene" uid="uid://du2f51txplfil" path="res://chars/enemies/simple_shooter_enemy/simple_shooter_enemy.tscn" id="9_5j68g"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_edeoy"]
+panorama = ExtResource("1_dxjaa")
+
+[sub_resource type="Sky" id="Sky_7bngf"]
+sky_material = SubResource("PanoramaSkyMaterial_edeoy")
+
+[sub_resource type="Environment" id="Environment_1hs3j"]
+background_mode = 1
+sky = SubResource("Sky_7bngf")
+glow_enabled = true
+glow_levels/1 = 5.0
+glow_levels/2 = 5.0
+glow_levels/3 = 10.0
+glow_levels/4 = 1.0
+glow_levels/5 = 10.0
+glow_levels/6 = 1.0
+glow_levels/7 = 1.0
+fog_light_color = Color(0.43663383, 0.5283297, 0.6559346, 1)
+fog_sun_scatter = 100.0
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_sjspb"]
+vertices = PackedVector3Array(-15.25, 0.55, 1.25, -15.25, 0.55, 2.75, -14.75, 0.55, 3, -1, 0.55, -2, -3, 0.55, -3, -3.75, 0.55, -2.25, -11.5, 0.55, 7, -11.25, 0.55, 7.5, -8.5, 0.55, 7.5, -7.75, 0.55, -5.25, -7.25, 0.55, -6.75, -10.25, 0.55, -7.25, -8.25, 0.55, 7, -5.75, 0.55, 1.25, -5.25, 0.55, 0.75, -4.75, 0.55, -2.25, -5.5, 0.55, -1, -15.25, 0.55, 6.75, -14.75, 0.55, 7.25, -10.25, 0.55, -1, -1.25, 0.55, 7.25, -1, 0.55, -6.75, -1.25, 0.55, -7.25, -2.75, 0.55, -7.25, -4.25, 0.55, -6.75, -2.25, 0.55, -4.75, -2.25, 0.55, -3.75, -0.75, 0.55, -2.5, 3.25, 0.55, 4.25, 4.5, 0.55, 4.5, 7, 0.55, 4.25, 7, 0.55, -2.25, 5.5, 0.55, -4.5, 1.25, 0.55, -2.25, 8.25, 0.55, -2.5, 8.25, 0.55, -4.25, 3.75, 0.55, 4.75, 3.75, 0.55, 7, 4.5, 0.55, 7, 4.75, 0.55, -6.75, 0.75, 0.55, -6.75, 5.5, 0.55, -7.25, 1.25, 0.55, 4.25, 1.25, 0.55, -7.25, -14.5, 3.05, -6.5, -14.5, 3.05, -1.5, -11.5, 3.05, -1.5, -11.5, 3.05, -6.5, -4.5, 3.05, -3.5, -3.5, 3.05, -4, -5.5, 3.05, -6.5, -6.5, 3.05, -6, 6.5, 3.05, -6.5, 6.5, 3.05, -5.5, 9.5, 3.05, -5.5, 9.5, 3.05, -6.5, 11.5, 2.55, -6.5, 11.5, 2.55, -5.5, 14.5, 2.55, -5.5, 14.5, 2.55, -6.5, 11.75, 0.55, -6.25, 11.75, 0.55, -5.75, 14.25, 0.55, -5.75, 14.25, 0.55, -6.25, 9.25, 0.55, -2.25, 15, 0.55, -4.25, 11.75, 0.55, 4.75, 11.75, 0.55, 7, 12.5, 0.55, 7, 12.5, 0.55, 4.5, 9.25, 0.55, 4.25, 11.25, 0.55, 4.25, 15, 0.55, 4.25, 1.5, 4.55, 5.25, 1.5, 4.55, 6.5, 2.5, 4.55, 6.5, 2.5, 4.55, 5.25, 5.5, 4.55, 5.25, 5.5, 4.55, 6.5, 6.5, 4.55, 6.5, 6.5, 4.55, 5.25, 9.5, 4.55, 5.25, 9.5, 4.55, 6.5, 10.5, 4.55, 6.5, 10.5, 4.55, 5.25, 13.5, 4.55, 5.25, 13.5, 4.55, 6.5, 14.5, 4.55, 6.5, 14.5, 4.55, 5.25)
+polygons = [PackedInt32Array(0, 2, 1), PackedInt32Array(5, 4, 3), PackedInt32Array(6, 8, 7), PackedInt32Array(11, 10, 9), PackedInt32Array(8, 6, 12), PackedInt32Array(12, 6, 2), PackedInt32Array(12, 2, 0), PackedInt32Array(12, 0, 13), PackedInt32Array(15, 5, 16), PackedInt32Array(16, 5, 14), PackedInt32Array(14, 5, 3), PackedInt32Array(18, 17, 6), PackedInt32Array(6, 17, 2), PackedInt32Array(15, 16, 9), PackedInt32Array(9, 16, 19), PackedInt32Array(9, 19, 11), PackedInt32Array(14, 3, 13), PackedInt32Array(13, 3, 20), PackedInt32Array(13, 20, 12), PackedInt32Array(22, 21, 23), PackedInt32Array(23, 21, 24), PackedInt32Array(24, 21, 25), PackedInt32Array(27, 3, 26), PackedInt32Array(26, 3, 4), PackedInt32Array(29, 28, 30), PackedInt32Array(30, 28, 31), PackedInt32Array(31, 28, 32), PackedInt32Array(32, 28, 33), PackedInt32Array(34, 31, 35), PackedInt32Array(35, 31, 32), PackedInt32Array(37, 36, 38), PackedInt32Array(38, 36, 29), PackedInt32Array(27, 25, 33), PackedInt32Array(33, 25, 40), PackedInt32Array(33, 40, 39), PackedInt32Array(33, 39, 32), PackedInt32Array(28, 29, 36), PackedInt32Array(32, 39, 41), PackedInt32Array(25, 21, 40), PackedInt32Array(28, 42, 33), PackedInt32Array(40, 43, 39), PackedInt32Array(27, 26, 25), PackedInt32Array(47, 46, 44), PackedInt32Array(44, 46, 45), PackedInt32Array(51, 50, 48), PackedInt32Array(48, 50, 49), PackedInt32Array(55, 54, 52), PackedInt32Array(52, 54, 53), PackedInt32Array(59, 58, 56), PackedInt32Array(56, 58, 57), PackedInt32Array(63, 62, 60), PackedInt32Array(60, 62, 61), PackedInt32Array(34, 35, 64), PackedInt32Array(64, 35, 65), PackedInt32Array(67, 66, 68), PackedInt32Array(68, 66, 69), PackedInt32Array(71, 70, 64), PackedInt32Array(71, 69, 66), PackedInt32Array(69, 71, 72), PackedInt32Array(72, 71, 64), PackedInt32Array(72, 64, 65), PackedInt32Array(76, 75, 73), PackedInt32Array(73, 75, 74), PackedInt32Array(80, 79, 77), PackedInt32Array(77, 79, 78), PackedInt32Array(84, 83, 81), PackedInt32Array(81, 83, 82), PackedInt32Array(88, 87, 85), PackedInt32Array(85, 87, 86)]
+cell_height = 0.5
+agent_max_slope = 50.0
+
+[node name="RoomStorageSimple" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1hs3j")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.37833866, 0.9176444, 0.121609844, 0.09500916, -0.16917707, 0.9809957, 0.92077863, -0.35959455, -0.15119083, -1.9487116, 5.2104697, 6.6427827)
+visible = false
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("2_fk6cc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9653931, 1.05, 0)
+
+[node name="WallBubble" parent="." instance=ExtResource("8_b46mk")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.4, 3.9, 0)
+light_energy = 10.0
+omni_range = 20.0
+
+[node name="WallBubble2" parent="." instance=ExtResource("8_b46mk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6000004, 3.9, -7)
+light_energy = 10.0
+omni_range = 20.0
+
+[node name="WallBubble3" parent="." instance=ExtResource("8_b46mk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3999996, 3.9, -7)
+light_energy = 10.0
+omni_range = 20.0
+
+[node name="WallBubble4" parent="." instance=ExtResource("8_b46mk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6, 3.9, -7)
+light_energy = 10.0
+omni_range = 20.0
+
+[node name="NavigationRegion3D2" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_sjspb")
+
+[node name="Map" type="Node3D" parent="NavigationRegion3D2"]
+
+[node name="floor_plain" parent="NavigationRegion3D2/Map" instance=ExtResource("3_8kqwe")]
+transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0)
+
+[node name="wall_thin-middle" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 2, 8)
+
+[node name="wall_thin-middle2" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, 8)
+
+[node name="wall_thin-middle3" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 8)
+
+[node name="wall_thin-middle4" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 8)
+
+[node name="wall_thin-middle5" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 8)
+
+[node name="wall_thin-middle6" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 8)
+
+[node name="wall_thin-middle8" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2, 8)
+
+[node name="wall_thin-middle9" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 2, -8)
+
+[node name="wall_thin-middle10" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, -8)
+
+[node name="wall_thin-middle11" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, -8)
+
+[node name="wall_thin-middle12" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -8)
+
+[node name="wall_thin-middle13" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, -8)
+
+[node name="wall_thin-middle14" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, -8)
+
+[node name="wall_thin-middle15" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, -8)
+
+[node name="wall_thin-middle16" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2, -8)
+
+[node name="wall_thin-middle17" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16, 2, 6)
+
+[node name="wall_thin-middle18" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16, 2, 2)
+
+[node name="wall_thin-middle19" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16, 2, -2)
+
+[node name="wall_thin-middle20" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16, 2, -6)
+
+[node name="wall_thin-middle21" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -16, 2, 6)
+
+[node name="wall_thin-middle22" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -16, 2, 2)
+
+[node name="wall_thin-middle23" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -16, 2, -2)
+
+[node name="wall_thin-middle24" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -16, 2, -6)
+
+[node name="wall_short_plane" parent="NavigationRegion3D2/Map" instance=ExtResource("5_v8vca")]
+transform = Transform3D(-2.1855695e-07, 0, -1, 0, 1, 0, 5, 0, -4.371139e-08, 8, 1, 3)
+
+[node name="wall_short_plane2" parent="NavigationRegion3D2/Map" instance=ExtResource("5_v8vca")]
+transform = Transform3D(-2.1855695e-07, 0, -1, 0, 1, 0, 5, 0, -4.371139e-08, 0, 1, 3)
+
+[node name="wall_short_plane3" parent="NavigationRegion3D2/Map" instance=ExtResource("5_v8vca")]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1, 0)
+
+[node name="crate_medium" parent="NavigationRegion3D2/Map" instance=ExtResource("6_v8vca")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1, -6)
+
+[node name="crate_medium2" parent="NavigationRegion3D2/Map" instance=ExtResource("6_v8vca")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.0999999, -6)
+
+[node name="crate_medium3" parent="NavigationRegion3D2/Map" instance=ExtResource("6_v8vca")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1.0999999, -6)
+
+[node name="crate_medium4" parent="NavigationRegion3D2/Map" instance=ExtResource("6_v8vca")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1.0999999, -4)
+
+[node name="crate_medium5" parent="NavigationRegion3D2/Map" instance=ExtResource("6_v8vca")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1.0999999, -2)
+
+[node name="crate_medium6" parent="NavigationRegion3D2/Map" instance=ExtResource("6_v8vca")]
+transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, -5, 1.0999999, -5)
+
+[node name="capbot_pod" parent="NavigationRegion3D2/Map" instance=ExtResource("7_ieymo")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 14, 2, 6)
+
+[node name="capbot_pod2" parent="NavigationRegion3D2/Map" instance=ExtResource("7_ieymo")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 10, 2, 6)
+
+[node name="capbot_pod3" parent="NavigationRegion3D2/Map" instance=ExtResource("7_ieymo")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6, 2, 6)
+
+[node name="capbot_pod4" parent="NavigationRegion3D2/Map" instance=ExtResource("7_ieymo")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 2, 6)
+
+[node name="SimpleShooterEnemy" parent="." instance=ExtResource("9_5j68g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.9499999, 0)

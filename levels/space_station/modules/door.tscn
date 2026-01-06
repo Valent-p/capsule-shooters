@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://di0gqyyqivqgd"]
+
+[ext_resource type="PackedScene" uid="uid://da10ivm3f6dsh" path="res://assets/env/space_station/wall_thin-middle_door.blend" id="1_enq2d"]
+[ext_resource type="Script" uid="uid://bapja86286ahi" path="res://levels/space_station/modules/door.gd" id="1_olj08"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0l4nl"]
+size = Vector3(3, 2, 4)
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_olj08")
+
+[node name="wall_thin-middle_door" parent="." instance=ExtResource("1_enq2d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Sensor" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sensor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_0l4nl")
+
+[connection signal="body_entered" from="Sensor" to="." method="_on_sensor_body_entered"]
+[connection signal="body_exited" from="Sensor" to="." method="_on_sensor_body_exited"]

@@ -91,6 +91,7 @@ agent = NodePath("..")
 level_up_effect_scene = ExtResource("14_r38wa")
 
 [node name="FollowingCameraComponent" parent="." node_paths=PackedStringArray("agent") instance=ExtResource("15_48llr")]
+visible = false
 agent = NodePath("..")
 
 [node name="PlayerUI" parent="." node_paths=PackedStringArray("player", "health_component", "weapon_component", "leveling_system") instance=ExtResource("12_ubdfs")]
@@ -98,5 +99,10 @@ player = NodePath("..")
 health_component = NodePath("../HealthComponent")
 weapon_component = NodePath("../WeaponComponent")
 leveling_system = NodePath("../LevelingSystem")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+light_energy = 10.0
+shadow_enabled = true
+spot_range = 10.0
 
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

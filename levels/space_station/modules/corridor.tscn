@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ru7tc7hq53l0"]
+
+[ext_resource type="PackedScene" uid="uid://cll8cdkq8xmdv" path="res://assets/env/space_station/floor_plain.blend" id="1_snivy"]
+[ext_resource type="PackedScene" uid="uid://djhcfho6pr8md" path="res://assets/env/space_station/wall_thin-middle.blend" id="2_vmgvg"]
+[ext_resource type="PackedScene" uid="uid://6w2un25i221i" path="res://levels/space_station/modules/wall_bulb.tscn" id="3_bgjrr"]
+
+[node name="SpaceStationCorridor" type="Node3D"]
+
+[node name="floor_plain" parent="." instance=ExtResource("1_snivy")]
+
+[node name="wall_thin-middle" parent="." instance=ExtResource("2_vmgvg")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 2, 0)
+
+[node name="wall_thin-middle2" parent="." instance=ExtResource("2_vmgvg")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 2, 0)
+
+[node name="WallBubble2" parent="." instance=ExtResource("3_bgjrr")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.7, 3.9, 0)
+light_energy = 2.0

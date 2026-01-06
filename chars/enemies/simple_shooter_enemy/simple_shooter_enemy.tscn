@@ -20,6 +20,7 @@ height = 1.8
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vicfj"]
 radius = 0.3
+height = 1.3422852
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_vicfj"]
 
@@ -64,6 +65,7 @@ agent = NodePath("..")
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32885742, 0)
 shape = SubResource("CapsuleShape3D_vicfj")
 debug_color = Color(0.97371656, 0, 0.43538627, 0.41960785)
 

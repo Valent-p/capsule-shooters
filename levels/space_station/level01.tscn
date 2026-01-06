@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=3 uid="uid://djl6tokhdn3d"]
+
+[ext_resource type="PackedScene" uid="uid://ddu5t46qqs24j" path="res://levels/space_station/modules/spawn_room.tscn" id="1_07bn2"]
+[ext_resource type="PackedScene" uid="uid://ru7tc7hq53l0" path="res://levels/space_station/modules/corridor.tscn" id="2_a5he6"]
+[ext_resource type="PackedScene" uid="uid://d2rlyljyl7vw3" path="res://levels/space_station/modules/security_room.tscn" id="3_npjum"]
+[ext_resource type="PackedScene" uid="uid://dlspwqvkel0iu" path="res://levels/space_station/modules/corridor_3ways.tscn" id="4_ta7fe"]
+[ext_resource type="PackedScene" uid="uid://dadglvwjq0k7o" path="res://levels/space_station/modules/corridor_corner.tscn" id="5_ta7fe"]
+
+[node name="Level01" type="Node3D"]
+
+[node name="SecurityRoom" parent="." instance=ExtResource("3_npjum")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56, 0, 22)
+
+[node name="RoomStorageSimple" parent="." instance=ExtResource("1_07bn2")]
+
+[node name="Corridors" type="Node3D" parent="."]
+
+[node name="SpaceStationCorridor" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 10)
+
+[node name="SpaceStationCorridor2" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 14)
+
+[node name="SpaceStationCorridor3" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 18)
+
+[node name="SpaceStationCorridor4" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 22)
+
+[node name="SpaceStationCorridor5" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 30)
+
+[node name="SpaceStationCorridor17" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -14, 0, 26)
+
+[node name="SpaceStationCorridor6" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 34)
+
+[node name="SpaceStationCorridor7" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 38)
+
+[node name="SpaceStationCorridor8" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 0, 42)
+
+[node name="SpaceStationCorridor9" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 0, 42)
+
+[node name="SpaceStationCorridor10" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 0, 42)
+
+[node name="SpaceStationCorridor11" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6, 0, 42)
+
+[node name="SpaceStationCorridor12" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 10, 0, 42)
+
+[node name="SpaceStationCorridor25" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 14, 0, 42)
+
+[node name="SpaceStationCorridor21" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 18, 0, 42)
+
+[node name="SpaceStationCorridor22" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 22, 0, 42)
+
+[node name="SpaceStationCorridor23" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 26, 0, 42)
+
+[node name="SpaceStationCorridor24" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 30, 0, 42)
+
+[node name="SpaceStationCorridor13" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 34, 0, 42)
+
+[node name="SpaceStationCorridor16" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 38, 0, 42)
+
+[node name="SpaceStationCorridor14" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 42, 0, 34)
+
+[node name="SpaceStationCorridor15" parent="Corridors" instance=ExtResource("2_a5he6")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 42, 0, 38)
+
+[node name="SpaceStationCorridor18" parent="Corridors" instance=ExtResource("4_ta7fe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 26)
+
+[node name="SpaceStationCorridor19" parent="Corridors" instance=ExtResource("5_ta7fe")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 42, 0, 42)
+
+[node name="SpaceStationCorridor20" parent="Corridors" instance=ExtResource("5_ta7fe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 42)

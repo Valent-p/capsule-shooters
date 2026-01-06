@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlspwqvkel0iu"]
+
+[ext_resource type="PackedScene" uid="uid://cll8cdkq8xmdv" path="res://assets/env/space_station/floor_plain.blend" id="1_6huya"]
+[ext_resource type="PackedScene" uid="uid://djhcfho6pr8md" path="res://assets/env/space_station/wall_thin-middle.blend" id="2_4eww7"]
+
+[node name="SpaceStationCorridor" type="Node3D"]
+
+[node name="floor_plain" parent="." instance=ExtResource("1_6huya")]
+
+[node name="wall_thin-middle2" parent="." instance=ExtResource("2_4eww7")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 2, 0)

@@ -37,8 +37,10 @@ func _tick(_delta: float) -> Status:
 	
 	# Set target
 	agent.nav_agent.target_position = target.global_position
+	var next_path = (agent.nav_agent as NavigationAgent3D).get_next_path_position()
+	var agent_pos = agent.global_position
 	
-	var dir: Vector3 = agent.global_position.direction_to(agent.nav_agent.get_next_path_position())
+	var dir: Vector3 = agent_pos.direction_to(next_path)
 	agent.movement_component.direction = dir
 	agent.rotation.y = deg_to_rad(180) + atan2(dir.x, dir.z)
 	return SUCCESS

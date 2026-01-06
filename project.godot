@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CapsuleShooters"
-run/main_scene="uid://cibeye1rsrqhv"
+run/main_scene="uid://djl6tokhdn3d"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
