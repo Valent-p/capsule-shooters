@@ -78,73 +78,73 @@ navigation_mesh = SubResource("NavigationMesh_sjspb")
 transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0)
 
 [node name="wall_thin-middle" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 2, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 8)
 
 [node name="wall_thin-middle2" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 8)
 
 [node name="wall_thin-middle3" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 8)
 
 [node name="wall_thin-middle4" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 8)
 
 [node name="wall_thin-middle5" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 8)
 
 [node name="wall_thin-middle6" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 8)
 
 [node name="wall_thin-middle8" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 8)
 
 [node name="wall_thin-middle9" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 2, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -8)
 
 [node name="wall_thin-middle10" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -8)
 
 [node name="wall_thin-middle11" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -8)
 
 [node name="wall_thin-middle12" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -8)
 
 [node name="wall_thin-middle13" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -8)
 
 [node name="wall_thin-middle14" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -8)
 
 [node name="wall_thin-middle15" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -8)
 
 [node name="wall_thin-middle16" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -8)
 
 [node name="wall_thin-middle17" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16, 2, 6)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16, 0, 6)
 
 [node name="wall_thin-middle18" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16, 2, 2)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16, 0, 2)
 
 [node name="wall_thin-middle19" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16, 2, -2)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16, 0, -2)
 
 [node name="wall_thin-middle20" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16, 2, -6)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16, 0, -6)
 
 [node name="wall_thin-middle21" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -16, 2, 6)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -16, 0, 6)
 
 [node name="wall_thin-middle22" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -16, 2, 2)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -16, 0, 2)
 
 [node name="wall_thin-middle23" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -16, 2, -2)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -16, 0, -2)
 
 [node name="wall_thin-middle24" parent="NavigationRegion3D2/Map" instance=ExtResource("4_8kqwe")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -16, 2, -6)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -16, 0, -6)
 
 [node name="wall_short_plane" parent="NavigationRegion3D2/Map" instance=ExtResource("5_v8vca")]
 transform = Transform3D(-2.1855695e-07, 0, -1, 0, 1, 0, 5, 0, -4.371139e-08, 8, 1, 3)

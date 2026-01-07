@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cr8bkoacbfkqx"]
+[gd_scene load_steps=9 format=3 uid="uid://cr8bkoacbfkqx"]
 
 [ext_resource type="Script" uid="uid://chfxmv551xdim" path="res://levels/procedural_level_generator.gd" id="1_aas34"]
 [ext_resource type="PackedScene" uid="uid://cll8cdkq8xmdv" path="res://assets/env/space_station/floor_plain.blend" id="2_4hngk"]
 [ext_resource type="PackedScene" uid="uid://djhcfho6pr8md" path="res://assets/env/space_station/wall_thin-middle.blend" id="3_b6o58"]
 [ext_resource type="PackedScene" uid="uid://hmwovwxii41u" path="res://chars/player/player.tscn" id="4_4hngk"]
+[ext_resource type="Script" uid="uid://d3msmkrq07a7w" path="res://items/placeable/prefab_item_data.gd" id="4_tc60b"]
+[ext_resource type="Resource" uid="uid://b17eo5lggrw37" path="res://items/placeable/items/spawn_room.tres" id="5_ge2qv"]
 [ext_resource type="Resource" uid="uid://bo2va3yxpp5oj" path="res://items/placeable/items/crate_small_item_data.tres" id="5_gwg3u"]
 [ext_resource type="Script" uid="uid://bbm2v557v8vju" path="res://items/placeable/placeable_item_data.gd" id="5_tc60b"]
 
@@ -12,6 +14,7 @@ script = ExtResource("1_aas34")
 floor_scene = ExtResource("2_4hngk")
 wall_scene = ExtResource("3_b6o58")
 rn_seed = 200
+prefab_defs = Array[ExtResource("4_tc60b")]([ExtResource("5_ge2qv")])
 item_defs = Array[ExtResource("5_tc60b")]([ExtResource("5_gwg3u")])
 
 [node name="floor_plain" parent="." instance=ExtResource("2_4hngk")]
@@ -19,3 +22,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 9, 35)
 
 [node name="Player" parent="." instance=ExtResource("4_4hngk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 11, 35)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.9659258, 0.066987306, 0.25, -0.25881904, 0.25000003, 0.93301266, 0, -0.9659258, 0.25881907, 0, 0, 0)

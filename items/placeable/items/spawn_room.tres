@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PrefabItemData" load_steps=3 format=3 uid="uid://b17eo5lggrw37"]
+
+[ext_resource type="PackedScene" uid="uid://ddu5t46qqs24j" path="res://levels/space_station/modules/spawn_room.tscn" id="1_3603w"]
+[ext_resource type="Script" uid="uid://d3msmkrq07a7w" path="res://items/placeable/prefab_item_data.gd" id="1_ee1x7"]
+
+[resource]
+script = ExtResource("1_ee1x7")
+prefab_scene = ExtResource("1_3603w")
+width = 8
+height = 4
+entrances = Array[Vector2i]([Vector2i(1, 3)])
+randomize_rotation = true
+fixed_direction = 1
+metadata/_custom_type_script = "uid://d3msmkrq07a7w"
