@@ -25,7 +25,7 @@ radius = 0.3
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("input_component", "bottom_marker", "shoot_marker", "weapon_component", "health_component", "movement_component", "hitbox_component", "leveling_system") groups=["Player"]]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 11
 script = ExtResource("1_48llr")
 input_component = NodePath("InputComponent")
 bottom_marker = NodePath("BottomMarker3D")

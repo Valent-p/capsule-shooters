@@ -97,7 +97,7 @@ throw_right={
 3d_physics/layer_1="World"
 3d_physics/layer_2="Characters"
 3d_physics/layer_3="Hitboxes"
-3d_physics/layer_4="Layer 4"
+3d_physics/layer_4="PlaceableItem"
 3d_physics/layer_5="Layer 5"
 
 [rendering]

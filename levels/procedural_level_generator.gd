@@ -10,10 +10,21 @@ extends Node3D
 
 class_name ProceduralLevelGenerator
 
+class LevelTileData:
+	var is_floor = false
+	var is_wall = false
+	var is_corridor = false
+	var is_room = false
+	# Add properties to identify tile characteristics
+	var is_corner = false
+	var is_surrounded = false
+	var neighbor_count = 0
+	var is_doorway = false
+	var is_wall_adjacent = false
+
 # Base scenes for tiles
 @export var floor_scene: PackedScene
 @export var wall_scene: PackedScene
-@export var door_scene: PackedScene # Door (same size as wall)
 
 # Level generation parameters
 @export var level_size: Vector2i = Vector2i(32, 32) # grid size in tiles
@@ -22,19 +33,8 @@ class_name ProceduralLevelGenerator
 @export var room_count: int = 8
 @export var rn_seed: int = 0
 
-
-# Item definition for procedural placement
-class ItemDef:
-	var scene: PackedScene
-	var density: float
-	var location_type: String # "room" or "corridor"
-	func _init(_scene, _density, _location_type):
-		scene = _scene
-		density = _density
-		location_type = _location_type
-
 # List of item definitions to spawn
-@export var item_defs: Array = [] # Array[Dictionary] with keys: scene, density, location_type
+@export var item_defs: Array[PlaceableItemData] = [] # Array[Dictionary] with keys: scene, density, location_type
 
 var _rng: RandomNumberGenerator
 var _grid: Array = [] # 2D array for tile occupancy
@@ -49,13 +49,14 @@ class Room:
 func _ready():
 	_rng = RandomNumberGenerator.new()
 	if rn_seed != 0:
-		_rng.rn_seed = rn_seed
+		_rng.seed = rn_seed
 	_generate_level()
 
 func _generate_level():
 	_init_grid()
 	_generate_rooms()
 	_generate_corridors()
+	_analyze_tiles()
 	_place_floors()
 	_place_walls()
 	_place_items()
@@ -63,39 +64,44 @@ func _generate_level():
 # Place items in rooms or corridors based on density and type
 func _place_items():
 	for item_def in item_defs:
-		var scene = null
-		var density = 0.05
-		var location_type = "room"
-		if typeof(item_def) == TYPE_DICTIONARY:
-			scene = item_def.get("scene", null)
-			density = item_def.get("density", 0.05)
-			location_type = item_def.get("location_type", "room")
-		else:
-			scene = item_def.scene
-			density = item_def.density
-			location_type = item_def.location_type
+		var scene = item_def.use_scene
 		if scene == null:
 			continue
-		var possible_tiles = []
-		if location_type == "room":
-			for room in _rooms:
-				for x in range(room.rect.position.x, room.rect.position.x + room.rect.size.x):
-					for y in range(room.rect.position.y, room.rect.position.y + room.rect.size.y):
-						possible_tiles.append(Vector2i(x, y))
-		elif location_type == "corridor":
-			possible_tiles = _corridors.duplicate()
-		for tile in possible_tiles:
-			if _rng.randf() < density:
-				var item = scene.instantiate()
-				item.position = Vector3(tile.x * 4, 0, tile.y * 4)
-				add_child(item)
+			
+		var density = item_def.density
+		var location_type = item_def.location_type
+		var room_location = item_def.room_location
+
+		for x in range(level_size.x):
+			for y in range(level_size.y):
+				var tile_data = _grid[x][y]
+
+				if not tile_data.is_floor or tile_data.is_doorway:
+					continue
+
+				var can_place = false
+				if location_type == PlaceableItemData.PlaceableLocationType.ROOM_TILE and tile_data.is_room:
+					if room_location == PlaceableItemData.RoomLocationType.CORNER and tile_data.is_corner:
+						can_place = true
+					elif room_location == PlaceableItemData.RoomLocationType.WALL and tile_data.is_wall_adjacent:
+						can_place = true
+					elif room_location == PlaceableItemData.RoomLocationType.OPEN_SPACE and not tile_data.is_corner and not tile_data.is_wall_adjacent:
+						can_place = true
+
+				elif location_type == PlaceableItemData.PlaceableLocationType.CORRIDOR_TILE and tile_data.is_corridor:
+					can_place = true
+				
+				if can_place and _rng.randf() < density:
+					var item = scene.instantiate()
+					item.position = Vector3(x * 4, 1, y * 4)
+					add_child(item)
 
 func _init_grid():
 	_grid.clear()
 	for x in range(level_size.x):
 		_grid.append([])
 		for y in range(level_size.y):
-			_grid[x].append(false)
+			_grid[x].append(LevelTileData.new())
 
 func _generate_rooms():
 	_rooms.clear()
@@ -115,7 +121,9 @@ func _generate_rooms():
 			_rooms.append(Room.new(new_rect))
 			for i in range(w):
 				for j in range(h):
-					_grid[x+i][y+j] = true
+					var tile_data = _grid[x+i][y+j]
+					tile_data.is_floor = true
+					tile_data.is_room = true
 		attempts += 1
 
 func _generate_corridors():
@@ -129,17 +137,74 @@ func _generate_corridors():
 		print("Connecting room", i-1, "at", a, "to room", i, "at", b)
 		_connect_points(a, b)
 
+func _analyze_tiles():
+	for x in range(level_size.x):
+		for y in range(level_size.y):
+			var tile_data = _grid[x][y]
+			if tile_data.is_floor:
+				var neighbor_count = 0
+				# Check 8 neighbors
+				for i in range(-1, 2):
+					for j in range(-1, 2):
+						if i == 0 and j == 0:
+							continue
+						var nx = x + i
+						var ny = y + j
+						if nx >= 0 and nx < level_size.x and ny >= 0 and ny < level_size.y and _grid[nx][ny].is_floor:
+							neighbor_count += 1
+				
+				tile_data.neighbor_count = neighbor_count
+				
+				if neighbor_count == 8:
+					tile_data.is_surrounded = true
+				
+				var wall_count = 0
+				for dir in [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]:
+					var nx = x + dir.x
+					var ny = y + dir.y
+					if nx < 0 or ny < 0 or nx >= level_size.x or ny >= level_size.y or not _grid[nx][ny].is_floor:
+						wall_count += 1
+
+				if wall_count == 1:
+					tile_data.is_wall_adjacent = true
+				elif wall_count == 2:
+					var north_is_wall = (y - 1 < 0 or not _grid[x][y-1].is_floor)
+					var south_is_wall = (y + 1 >= level_size.y or not _grid[x][y+1].is_floor)
+					var east_is_wall = (x + 1 >= level_size.x or not _grid[x+1][y].is_floor)
+					var west_is_wall = (x - 1 < 0 or not _grid[x-1][y].is_floor)
+					if (north_is_wall and east_is_wall) or \
+					   (north_is_wall and west_is_wall) or \
+					   (south_is_wall and east_is_wall) or \
+					   (south_is_wall and west_is_wall):
+						tile_data.is_corner = true
+				elif wall_count > 2:
+					tile_data.is_corner = true
+				
+				if tile_data.is_room:
+					for dir in [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]:
+						var nx = x + dir.x
+						var ny = y + dir.y
+						if nx >= 0 and nx < level_size.x and ny >= 0 and ny < level_size.y and _grid[nx][ny].is_corridor:
+							tile_data.is_doorway = true
+							break
+
 func _connect_points(a: Vector2i, b: Vector2i):
 	var x = a.x
 	var y = a.y
 	while x != b.x:
-		_grid[x][y] = true
+		var tile_data = _grid[x][y]
+		if not tile_data.is_floor:
+			tile_data.is_floor = true
+			tile_data.is_corridor = true
 		if not Vector2i(x, y) in _corridors:
 			_corridors.append(Vector2i(x, y))
 			print("Corridor tile:", x, y)
 		x += 1 if b.x > x else -1
 	while y != b.y:
-		_grid[x][y] = true
+		var tile_data = _grid[x][y]
+		if not tile_data.is_floor:
+			tile_data.is_floor = true
+			tile_data.is_corridor = true
 		if not Vector2i(x, y) in _corridors:
 			_corridors.append(Vector2i(x, y))
 			print("Corridor tile:", x, y)
@@ -148,7 +213,7 @@ func _connect_points(a: Vector2i, b: Vector2i):
 func _place_floors():
 	for x in range(level_size.x):
 		for y in range(level_size.y):
-			if _grid[x][y]:
+			if _grid[x][y].is_floor:
 				var floor_tile = floor_scene.instantiate()
 				floor_tile.position = Vector3(x*4, 0, y*4)
 				add_child(floor_tile)
@@ -157,43 +222,17 @@ func _place_walls():
 	print("Rooms:", _rooms.size(), "Corridors:", _corridors.size())
 	for x in range(level_size.x):
 		for y in range(level_size.y):
-			if _grid[x][y]:
+			if _grid[x][y].is_floor:
 				for dir in [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]:
 					var nx = x + dir.x
 					var ny = y + dir.y
-					var here = Vector2i(x, y)
-					var neighbor = Vector2i(nx, ny)
-					var is_room = false
-					var is_neighbor_room = false
-					var is_corridor = false
-					var is_neighbor_corridor = false
-					# Is current tile a room?
-					for room in _rooms:
-						if room.rect.has_point(here):
-							is_room = true
-						if room.rect.has_point(neighbor):
-							is_neighbor_room = true
-					# Is current/neighbor a corridor?
-					if here in _corridors:
-						is_corridor = true
-					if neighbor in _corridors:
-						is_neighbor_corridor = true
-					# Place door only if current is room, neighbor is corridor, and neighbor is not a room
-					var use_door = false
-					if door_scene != null and is_room and is_neighbor_corridor and not is_neighbor_room:
-						use_door = true
-					# Place wall only if neighbor is not a room and not a corridor and is inside grid
-					var place_wall = false
-					if not use_door and (nx < 0 or ny < 0 or nx >= level_size.x or ny >= level_size.y or (not is_neighbor_room and not is_neighbor_corridor)):
-						place_wall = true
-					if use_door or place_wall:
-						var wall_or_door = door_scene.instantiate() if use_door else wall_scene.instantiate()
-						wall_or_door.position = Vector3((x+dir.x/2.0)*4, 0, (y+dir.y/2.0)*4)
+					# Place wall if neighbor is outside grid, or is not an occupied tile
+					if nx < 0 or ny < 0 or nx >= level_size.x or ny >= level_size.y or not _grid[nx][ny].is_floor:
+						var wall = wall_scene.instantiate()
+						wall.position = Vector3((x+dir.x/2.0)*4, 0, (y+dir.y/2.0)*4)
 						if dir.x != 0:
-							wall_or_door.rotation.y = deg_to_rad(90)
-						add_child(wall_or_door)
-						if use_door:
-							print("Placed door at:", x, y, "dir:", dir, "room:", is_room, "neighbor_corridor:", is_neighbor_corridor, "neighbor_room:", is_neighbor_room)
+							wall.rotation.y = deg_to_rad(90)
+						add_child(wall)
 
 # Extension points:
 # - Add _place_items(), _place_enemies(), _place_traps(), etc.

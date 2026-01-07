@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PlaceableItemData" load_steps=3 format=3 uid="uid://bo2va3yxpp5oj"]
+
+[ext_resource type="Script" uid="uid://bbm2v557v8vju" path="res://items/placeable/placeable_item_data.gd" id="1_itx6a"]
+[ext_resource type="PackedScene" uid="uid://r3qu7w56b5nx" path="res://items/placeable/items/crate_small_item.tscn" id="2_e8pnr"]
+
+[resource]
+script = ExtResource("1_itx6a")
+body_size = Vector3(1, 1, 1)
+density = 0.2
+item_name = "Small Crate"
+use_scene = ExtResource("2_e8pnr")
+item_description = "A small crate."
+metadata/_custom_type_script = "uid://bbm2v557v8vju"

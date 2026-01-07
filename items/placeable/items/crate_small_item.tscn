@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://r3qu7w56b5nx"]
+
+[ext_resource type="PackedScene" uid="uid://cebgapvorg3cm" path="res://assets/env/space_station/crate_small.blend" id="1_vwtnp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rla6j"]
+size = Vector3(2, 1, 1)
+
+[node name="CrateSmallItem" type="RigidBody3D"]
+collision_layer = 8
+collision_mask = 11
+input_ray_pickable = false
+
+[node name="crate_small" parent="." instance=ExtResource("1_vwtnp")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.022949219, 0, 0)
+shape = SubResource("BoxShape3D_rla6j")
