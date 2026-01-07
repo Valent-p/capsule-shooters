@@ -3,7 +3,8 @@ extends ItemData
 
 enum PlaceableLocationType {
 	ROOM_TILE,
-	CORRIDOR_TILE
+	CORRIDOR_TILE,
+	WALL_TILE
 }
 enum RoomLocationType {
 	CORNER,

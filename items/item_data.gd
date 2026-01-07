@@ -12,6 +12,7 @@ var agent: Character
 
 ## When it is in the inventory, 1 means none groupable
 @export var group_size: int = 1
+@export var tier: int = 1
 
 @export var icon: Texture2D
 
