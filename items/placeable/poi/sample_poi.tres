@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="POIData" load_steps=3 format=3 uid="uid://b5xe3egljcju4"]
+
+[ext_resource type="PackedScene" uid="uid://da10ivm3f6dsh" path="res://assets/env/space_station/wall_thin-middle_door.blend" id="1_7et3n"]
+[ext_resource type="Script" uid="uid://nouj2jdmvdcs" path="res://items/placeable/poi_data.gd" id="1_egltf"]
+
+[resource]
+script = ExtResource("1_egltf")
+poi_scene = ExtResource("1_7et3n")
+density = 0.5
+location_type = 4
+y_offset = 1.0
+metadata/_custom_type_script = "uid://nouj2jdmvdcs"

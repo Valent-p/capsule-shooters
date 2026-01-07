@@ -4,12 +4,13 @@ extends Resource
 enum POILocationType {
 	CORNER,
 	OPEN_SPACE,
-	WALL, # This is for tiles adjacent to a wall
-	CORRIDOR_TILE,
-	WALL_BLOCK, # This is for actual wall blocks (not floor)
-	WALL_FEATURE # For items that attach to a wall, not part of it
+	CORRIDOR_TILE, # Decorative pillar/debris in hall
+	WALL_BLOCK,    # Replaces a solid wall tile (Secret door, grating)
+	WALL_FEATURE   # Attached to a wall (Torch, Painting)
 }
 
 @export var poi_scene: PackedScene
-@export var density: float = 0.01
+@export var density: float = 0.05
 @export var location_type: POILocationType = POILocationType.OPEN_SPACE
+@export var y_offset: float = 0.0
+@export var use_random_rotation: bool = false # Useful for OPEN_SPACE

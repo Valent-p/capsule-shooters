@@ -15,7 +15,14 @@
 script = ExtResource("1_aas34")
 floor_scene = ExtResource("2_4hngk")
 wall_scene = ExtResource("3_b6o58")
+level_size = null
+min_room_size = null
+max_room_size = null
+room_count = null
 rn_seed = 200
+prefab_chance = null
+secret_room_chance = null
+locked_room_chance = null
 prefab_defs = Array[ExtResource("4_tc60b")]([ExtResource("5_ge2qv")])
 item_defs = Array[ExtResource("5_tc60b")]([ExtResource("5_gwg3u")])
 poi_defs = Array[ExtResource("8_fx3g3")]([ExtResource("9_nmtpp")])
