@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PrefabItemData" load_steps=3 format=3 uid="uid://blna4gs7tiqq3"]
+
+[ext_resource type="PackedScene" uid="uid://d2rlyljyl7vw3" path="res://levels/space_station/modules/security_room.tscn" id="1_6ve3a"]
+[ext_resource type="Script" uid="uid://d3msmkrq07a7w" path="res://items/placeable/prefab_item_data.gd" id="1_jqxg2"]
+
+[resource]
+script = ExtResource("1_jqxg2")
+prefab_scene = ExtResource("1_6ve3a")
+width = 13
+entrances = Array[Vector2i]([Vector2i(4, 4)])
+metadata/_custom_type_script = "uid://d3msmkrq07a7w"

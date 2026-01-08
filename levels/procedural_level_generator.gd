@@ -113,10 +113,68 @@ func _init_grid():
 		for y in range(level_size.y):
 			_grid[x].append(LevelTileData.new())
 
+func _generate_unique_prefabs(current_room_id: int):
+	for prefab in prefab_defs.duplicate():
+		if prefab.unique:
+			# Remove to make sure we don't place it again
+			prefab_defs.erase(prefab)
+
+			var w: int
+			var h: int
+			var chosen_dir: PrefabItemData.Direction
+			# 1. Decide Rotation
+			if prefab.randomize_rotation:
+				chosen_dir = _rng.randi_range(0, 3) as PrefabItemData.Direction
+			else:
+				chosen_dir = prefab.fixed_direction
+			# 2. Calculate Dimensions (Swap if East/West)
+			if chosen_dir == PrefabItemData.Direction.EAST or chosen_dir == PrefabItemData.Direction.WEST:
+				w = prefab.height
+				h = prefab.width
+			else:
+				w = prefab.width
+				h = prefab.height
+			# 3. Find Spot
+			var placed = false
+			var attempts = 0
+			while not placed and attempts < 100:
+				var x = _rng.randi_range(1, level_size.x - w - 2)
+				var y = _rng.randi_range(1, level_size.y - h - 2)
+				var new_rect = Rect2i(x, y, w, h)
+				var overlaps = false
+				for room in _rooms:
+					if room.rect.grow(1).intersects(new_rect):
+						overlaps = true
+						break
+				if not overlaps:
+					var new_room = Room.new(current_room_id, new_rect, prefab.prefab_scene, chosen_dir)
+					# Calculate Global Entrances based on Rotation
+					for entrance_local in prefab.entrances:
+						var rotated_entrance = _rotate_point(entrance_local, chosen_dir, prefab.width, prefab.height)
+						var global_pos = new_rect.position + rotated_entrance
+						new_room.global_entrances.append(global_pos)
+					_rooms.append(new_room)
+					# Mark Grid
+					for i in range(w):
+						for j in range(h):
+							var tile_data = _grid[x+i][y+j]
+							tile_data.is_floor = true
+							tile_data.is_room = true
+							tile_data.is_prefab = true
+							tile_data.room_id = current_room_id
+					current_room_id += 1
+					placed = true
+				attempts += 1
+
 func _generate_rooms():
 	_rooms.clear()
 	var attempts = 0
 	var current_room_id = 0
+
+	# NOTE: All unique prefabs MUST be placed no matter what, but only once.
+	_generate_unique_prefabs(current_room_id)
+	current_room_id = _rooms.size()
+
 	while _rooms.size() < room_count and attempts < room_count * 10:
 		var w: int
 		var h: int
@@ -125,6 +183,10 @@ func _generate_rooms():
 		
 		if _rng.randf() < prefab_chance and prefab_defs.size() > 0:
 			prefab_to_place = prefab_defs.pick_random()
+
+			# Remove it from list if unique
+			if prefab_to_place.unique:
+				prefab_defs.erase(prefab_to_place)
 			
 			# 1. Decide Rotation
 			if prefab_to_place.randomize_rotation:

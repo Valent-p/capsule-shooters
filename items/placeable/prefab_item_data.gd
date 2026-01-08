@@ -11,3 +11,6 @@ enum Direction { NORTH, EAST, SOUTH, WEST }
 @export_group("Orientation")
 @export var randomize_rotation: bool = false
 @export var fixed_direction: Direction = Direction.NORTH
+
+## If this item must exist once only in the world; Useful for spawn or win conditions
+@export var unique: bool = false

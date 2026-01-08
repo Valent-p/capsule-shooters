@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="POIData" load_steps=3 format=3 uid="uid://b5xe3egljcju4"]
 
-[ext_resource type="PackedScene" uid="uid://bgs8y87pokqmg" path="res://items/placeable/poi/poi_bulb.tscn" id="1_7et3n"]
+[ext_resource type="PackedScene" uid="uid://bgs8y87pokqmg" path="res://items/placeable/pois/poi_bulb.tscn" id="1_7et3n"]
 [ext_resource type="Script" uid="uid://nouj2jdmvdcs" path="res://items/placeable/poi_data.gd" id="1_egltf"]
 
 [resource]
