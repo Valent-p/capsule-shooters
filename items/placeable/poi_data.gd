@@ -12,5 +12,5 @@ enum POILocationType {
 @export var poi_scene: PackedScene
 @export var density: float = 0.05
 @export var location_type: POILocationType = POILocationType.OPEN_SPACE
-@export var y_offset: float = 0.0
+@export var offset_y: float
 @export var use_random_rotation: bool = false # Useful for OPEN_SPACE

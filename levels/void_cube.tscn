@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bo5qa6vwewaet"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hm5o"]
+shading_mode = 0
+specular_mode = 2
+disable_ambient_light = true
+disable_fog = true
+disable_specular_occlusion = true
+albedo_color = Color(0, 0, 0, 1)
+disable_receive_shadows = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_sl5o5"]
+material = SubResource("StandardMaterial3D_3hm5o")
+size = Vector3(4, 4, 4)
+
+[node name="VoidCube" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_sl5o5")

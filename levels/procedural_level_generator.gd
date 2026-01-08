@@ -10,7 +10,6 @@ class LevelTileData:
 	var is_room = false
 	var is_prefab = false
 	var room_id = -1
-	var is_secret_room = false
 	# Add properties to identify tile characteristics
 	var is_corner = false
 	var is_surrounded = false
@@ -21,6 +20,7 @@ class LevelTileData:
 # Base scenes for tiles
 @export var floor_scene: PackedScene
 @export var wall_scene: PackedScene
+@export var void_cube_scene: PackedScene
 
 # Level generation parameters
 @export var level_size: Vector2i = Vector2i(32, 32) # grid size in tiles
@@ -29,11 +29,6 @@ class LevelTileData:
 @export var room_count: int = 8
 @export var rn_seed: int = 0
 @export var prefab_chance: float = 0.25
-@export var secret_room_chance: float = 0.1
-@export var locked_room_chance: float = 0.1
-@export var secret_wall_scene: PackedScene
-@export var key_item_scene: PackedScene
-@export var locked_door_scene: PackedScene
 
 # List of definitions
 @export var prefab_defs: Array[PrefabItemData] = []
@@ -55,8 +50,6 @@ class Room:
 	var prefab_scene: PackedScene = null
 	var density_modifier: float = 1.0
 	var distance_from_spawn: int = -1
-	var is_secret_room: bool = false
-	var is_locked: bool = false
 	var rotation_dir: PrefabItemData.Direction
 	
 	# Store entrances in Global Grid Coordinates
@@ -108,6 +101,7 @@ func _generate_level():
 	_place_walls()
 	_place_items()
 	
+	_place_dark_cubes()
 	# _debug_draw_rooms()
 
 # --- GENERATION STEPS ---
@@ -189,8 +183,6 @@ func _generate_rooms():
 					if valid_placement: break
 			
 			if valid_placement:
-				if _rng.randf() < secret_room_chance: new_room.is_secret_room = true
-				if new_room.prefab_scene == null and not new_room.is_secret_room and _rng.randf() < locked_room_chance: new_room.is_locked = true
 				new_room.density_modifier = _rng.randf_range(0.5, 1.5)
 				
 				_rooms.append(new_room)
@@ -203,7 +195,6 @@ func _generate_rooms():
 						tile_data.is_room = true
 						tile_data.room_id = current_room_id
 						if prefab_to_place: tile_data.is_prefab = true
-						if new_room.is_secret_room: tile_data.is_secret_room = true
 				current_room_id += 1
 		attempts += 1
 
@@ -391,7 +382,7 @@ func _place_pois():
 				# --- PLACEMENT ---
 				var poi = scene.instantiate()
 				add_child(poi)
-				poi.position = Vector3(x * 4 + 2, poi_def.y_offset, y * 4 + 2)
+				poi.position = Vector3(x * 4 + 2, poi_def.offset_y, y * 4 + 2)
 				
 				if loc_type == POIData.POILocationType.WALL_BLOCK:
 					_align_and_register_wall_block(poi, x, y)
@@ -458,7 +449,6 @@ func _place_walls():
 					var ny = y + dir.y
 					# Place wall if neighbor is void
 					if nx < 0 or ny < 0 or nx >= level_size.x or ny >= level_size.y or not _grid[nx][ny].is_floor:
-						
 						# Calculate exact wall position
 						var wall_x = (x * 4) + 2 + (dir.x * 2)
 						var wall_z = (y * 4) + 2 + (dir.y * 2)
@@ -469,8 +459,6 @@ func _place_walls():
 							continue # Skip wall
 						
 						var wall = wall_scene.instantiate()
-						if tile_data.is_secret_room and secret_wall_scene:
-							wall = secret_wall_scene.instantiate()
 							
 						wall.position = Vector3(wall_x, 0, wall_z)
 						if dir.x != 0: wall.rotation.y = deg_to_rad(90)
@@ -511,6 +499,17 @@ func _place_items():
 					# Add Alignment logic if needed (similar to POIs)
 					
 					add_child(item)
+
+func _place_dark_cubes():
+	for x in range(level_size.x):
+		for y in range(level_size.y):
+			var tile_data = _grid[x][y]
+			if not tile_data.is_floor and not tile_data.is_prefab:
+				var void_cube = void_cube_scene.instantiate()
+				# +2 Offset for center alignment
+				void_cube.position = Vector3(x*4+2, 2.05, y*4+2)
+				add_child(void_cube)
+	
 
 func _debug_draw_rooms():
 	for room in _rooms:
