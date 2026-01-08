@@ -378,6 +378,36 @@ func _analyze_tiles():
 
 			if wall_count == 1: tile_data.is_wall_adjacent = true
 			elif wall_count > 1: tile_data.is_corner = true # Simplified corner check
+	
+	# UPDATE: If a corridor is having more than 2 neighbors, mark as room tile
+	for corridor_pos in _corridors:
+		var x = corridor_pos.x
+		var y = corridor_pos.y
+		var tile_data = _grid[x][y]
+		var neighbor_count = 0
+		for i in range(-1, 2):
+			for j in range(-1, 2):
+				if i == 0 and j == 0: continue
+				var nx = x + i
+				var ny = y + j
+				if nx >= 0 and nx < level_size.x and ny >= 0 and ny < level_size.y and _grid[nx][ny].is_floor:
+					neighbor_count += 1
+		if neighbor_count > 2:
+			tile_data.is_room = true
+			tile_data.is_corridor = false
+			if tile_data.room_id == -1:
+				# Assign to nearest room
+				var closest_room_id = -1
+				var closest_dist = INF
+				for room in _rooms:
+					var room_center = room.rect.get_center()
+					var dist = Vector2(x, y).distance_squared_to(room_center)
+					if dist < closest_dist:
+						closest_dist = dist
+						closest_room_id = room.id
+				tile_data.room_id = closest_room_id
+			tile_data.is_doorway = true
+
 
 # --- PLACEMENT STEPS ---
 
@@ -448,10 +478,16 @@ func _place_pois():
 				
 				if loc_type == POIData.POILocationType.WALL_BLOCK:
 					_align_and_register_wall_block(poi, x, y)
-				elif poi_def.use_random_rotation:
+				elif loc_type == POIData.POILocationType.CORRIDOR_TILE and poi_def.direction == POIData.Direction.RANDOM:
 					poi.rotation.y = _rng.randf() * TAU
-				else:
+				elif loc_type == POIData.POILocationType.CORRIDOR_TILE and poi_def.direction == POIData.Direction.GRID_SNAP:
+					# Use linear align. if A has north and south neighbors face to south or north. If has east and west neighbors face to east or west.
 					_align_poi_and_snap(poi, x, y, loc_type)
+					
+				else: # NORTH, WEST, EAST or SOUTH
+					poi.rotation_degrees.y = poi_def.direction * -90
+					if loc_type == POIData.POILocationType.WALL_FEATURE:
+						_align_poi_and_snap(poi, x, y, loc_type)
 
 func _align_and_register_wall_block(node: Node3D, x: int, y: int):
 	# Finds the void neighbor, looks at it, moves POI to the edge, and registers the gap.
@@ -486,10 +522,16 @@ func _align_poi_and_snap(node: Node3D, x: int, y: int, type: POIData.POILocation
 				node.position += Vector3(dir.x, 0, dir.y) * 2.0
 				break
 	elif type == POIData.POILocationType.CORRIDOR_TILE:
-		var left = x - 1 >= 0 and _grid[x-1][y].is_corridor
-		var right = x + 1 < level_size.x and _grid[x+1][y].is_corridor
-		if left or right: node.rotation_degrees.y = 90
-		else: node.rotation_degrees.y = 0
+		var left = x - 1 >= 0 and _grid[x-1][y].is_floor
+		var right = x + 1 < level_size.x and _grid[x+1][y].is_floor
+		var up = y + 1 < level_size.y and _grid[x][y+1].is_floor
+		var down = y - 1 >= 0 and _grid[x][y-1].is_floor
+		if (left and right) and not (up or down):
+			# Horizontal corridor
+			node.rotation_degrees.y = 90
+		elif (up and down) and not (left or right):
+			# Vertical corridor
+			node.rotation_degrees.y = 0
 	elif type == POIData.POILocationType.CORNER:
 		var wall_dir_sum = Vector2i.ZERO
 		for dir in [Vector2i(0, 1), Vector2i(0, -1), Vector2i(1, 0), Vector2i(-1, 0)]:

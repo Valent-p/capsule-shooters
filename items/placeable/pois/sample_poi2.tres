@@ -6,7 +6,8 @@
 [resource]
 script = ExtResource("2_cmfod")
 poi_scene = ExtResource("1_pkmuj")
-density = 0.5
-location_type = 4
-offset_y = 5.0
+density = 1.0
+location_type = 2
+offset_y = 2.0
+direction = 5
 metadata/_custom_type_script = "uid://nouj2jdmvdcs"
