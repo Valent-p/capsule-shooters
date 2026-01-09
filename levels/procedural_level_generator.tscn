@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://cr8bkoacbfkqx"]
+[gd_scene load_steps=12 format=3 uid="uid://cr8bkoacbfkqx"]
 
 [ext_resource type="Script" uid="uid://chfxmv551xdim" path="res://levels/procedural_level_generator.gd" id="1_aas34"]
 [ext_resource type="PackedScene" uid="uid://cll8cdkq8xmdv" path="res://assets/env/space_station/floor_plain.blend" id="2_4hngk"]
 [ext_resource type="PackedScene" uid="uid://djhcfho6pr8md" path="res://assets/env/space_station/wall_thin-middle.blend" id="3_b6o58"]
-[ext_resource type="PackedScene" uid="uid://hmwovwxii41u" path="res://chars/player/player.tscn" id="4_4hngk"]
 [ext_resource type="PackedScene" uid="uid://bo5qa6vwewaet" path="res://levels/void_cube.tscn" id="4_nmtpp"]
 [ext_resource type="Script" uid="uid://d3msmkrq07a7w" path="res://items/placeable/prefab_item_data.gd" id="4_tc60b"]
 [ext_resource type="Resource" uid="uid://b17eo5lggrw37" path="res://items/placeable/prefabs/spawn_room.tres" id="5_ge2qv"]
@@ -15,40 +14,10 @@
 
 [node name="ProceduralLevelGenerator" type="Node3D"]
 script = ExtResource("1_aas34")
+rn_seed = 1560
 floor_scene = ExtResource("2_4hngk")
 wall_scene = ExtResource("3_b6o58")
 void_cube_scene = ExtResource("4_nmtpp")
-rn_seed = 1560
 prefab_defs = Array[ExtResource("4_tc60b")]([ExtResource("5_ge2qv"), ExtResource("7_sc5pl")])
 item_defs = Array[ExtResource("5_tc60b")]([ExtResource("5_gwg3u")])
 poi_defs = Array[ExtResource("8_fx3g3")]([ExtResource("10_nmtpp")])
-
-[node name="floor_plain" parent="." instance=ExtResource("2_4hngk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 9, 35)
-
-[node name="Player" parent="." instance=ExtResource("4_4hngk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 11, 35)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.9659258, 1.131334e-08, -0.25881904, 0.25881904, -4.222196e-08, 0.9659258, 0, -1, -4.371139e-08, -2, 0, 0)
-light_color = Color(0.4509027, 0.7089773, 0.8849318, 1)
-shadow_enabled = true
-directional_shadow_mode = 0
-
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.258819, 0.9659258, 0, -0.9659258, 0.258819, 0, 0, 2)
-light_color = Color(0.4509027, 0.7089773, 0.8849318, 1)
-shadow_enabled = true
-directional_shadow_mode = 0
-
-[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.9659258, -1.131334e-08, 0.25881904, -0.25881904, -4.222196e-08, 0.9659258, 0, -1, -4.371139e-08, 2, 0, 0)
-light_color = Color(0.4509027, 0.7089773, 0.8849318, 1)
-shadow_enabled = true
-directional_shadow_mode = 0
-
-[node name="DirectionalLight3D4" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.25881907, 0.9659258, 0, -0.9659258, -0.25881907, 0, 0, -2)
-light_color = Color(0.4509027, 0.7089773, 0.8849318, 1)
-shadow_enabled = true
-directional_shadow_mode = 0
