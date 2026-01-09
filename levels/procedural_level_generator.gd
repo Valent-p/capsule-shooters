@@ -1,8 +1,7 @@
-# procedural_level_generator.gd
-# This is the main orchestrator for the phased procedural level generator.
-# It holds the parameters and calls the specialized generator modules in sequence.
 class_name ProceduralLevelGenerator
 extends Node3D
+
+signal level_ready(level_data: Dictionary)
 
 # --- Level Generation Parameters ---
 @export_group("Dimensions")
@@ -24,6 +23,8 @@ extends Node3D
 @export var prefab_defs: Array[PrefabItemData] = []
 @export var placeable_defs: Array[PlaceableData] = []
 
+@export_group("Scene Integration")
+@export var nav_region: NavigationRegion3D
 
 # --- Private Generation State ---
 var _rng: RandomNumberGenerator
@@ -31,11 +32,14 @@ var _grid: Array = []
 var _rooms: Array[Room] = []
 var _corridors: Array[Vector2i] = []
 
-# ObjectPlacer has instance methods, so it needs to be instantiated.
 var _object_placer_instance: ObjectPlacer
 
-
 func _ready():
+	# We no longer auto-generate. Wait for an external call to generate().
+	pass
+
+# Public method to be called by the level script to start generation.
+func generate():
 	_generate_level()
 
 # Main generation function that orchestrates the entire process.
@@ -43,8 +47,6 @@ func _generate_level():
 	# --- 1. Initialization ---
 	_initialize_generation_state()
 	
-	# Pack all parameters into a dictionary to easily pass them to static methods.
-	# This dictionary does NOT include rooms/corridors yet, as they haven't been generated.
 	var generation_params = {
 		"level_size": level_size,
 		"room_count": room_count,
@@ -61,35 +63,41 @@ func _generate_level():
 	}
 	
 	# --- 2. Logical Generation Phases ---
-	# These phases create the logical map in the _grid data structure.
 	_rooms = RoomGenerator.generate_rooms(_grid, generation_params)
 	_corridors = CorridorGenerator.generate_corridors(_grid, _rooms, level_size)
 	TileAnalyzer.analyze_tiles(_grid, _rooms, _corridors, level_size)
 	
 	# --- 3. Physical Placement Phase ---
-	# BUG FIX: Update the dictionary with the newly generated data BEFORE passing it to the placer.
 	generation_params["rooms"] = _rooms
 	generation_params["corridors"] = _corridors
-	_object_placer_instance.place_all_objects(self, generation_params)
+	# IMPORTANT: We now pass the nav_region as the parent for all generated objects.
+	_object_placer_instance.place_all_objects(nav_region, generation_params)
 	
-	# Optional: For debugging the logical room layout.
-	# _debug_draw_rooms()
+	# --- 4. Finalize and Emit Signal ---
+	var final_level_data = {
+		"rooms": _rooms,
+		"corridors": _corridors,
+		"grid": _grid
+	}
+	level_ready.emit(final_level_data)
+	print("ProceduralLevelGenerator: Level generation complete. Emitting level_ready.")
 
 
 # Sets up or resets all the state variables for a new level generation.
 func _initialize_generation_state():
-	# Clear any previously generated objects from the scene.
-	for child in get_children():
-		child.queue_free()
-		
-	# Initialize the Random Number Generator.
+	# Clear any previously generated objects from the navigation region.
+	if nav_region:
+		for child in nav_region.get_children():
+			child.queue_free()
+	else:
+		push_warning("NavigationRegion3D not set in ProceduralLevelGenerator. Objects will not be placed.")
+
 	_rng = RandomNumberGenerator.new()
 	if rn_seed != 0:
 		_rng.seed = rn_seed
 	else:
 		_rng.randomize()
 
-	# Initialize the data structures.
 	_grid.clear()
 	for x in range(level_size.x):
 		_grid.append([])
@@ -99,7 +107,6 @@ func _initialize_generation_state():
 	_rooms.clear()
 	_corridors.clear()
 	
-	# Create an instance of the placer since its methods are not static.
 	_object_placer_instance = ObjectPlacer.new()
 
 

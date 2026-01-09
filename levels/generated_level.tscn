@@ -1,12 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://c858qa8ef0taq"]
+[gd_scene load_steps=9 format=3 uid="uid://c858qa8ef0taq"]
 
 [ext_resource type="PackedScene" uid="uid://cr8bkoacbfkqx" path="res://levels/procedural_level_generator.tscn" id="1_3ohpv"]
+[ext_resource type="Script" uid="uid://x14n1t51cs54" path="res://levels/generated_level.gd" id="1_lncpf"]
 [ext_resource type="PackedScene" uid="uid://cll8cdkq8xmdv" path="res://assets/env/space_station/floor_plain.blend" id="2_lncpf"]
+[ext_resource type="PackedScene" uid="uid://du2f51txplfil" path="res://chars/enemies/simple_shooter_enemy/simple_shooter_enemy.tscn" id="2_y6t06"]
+[ext_resource type="Script" uid="uid://d3msmkrq07a7w" path="res://items/placeable/prefab_item_data.gd" id="3_572uq"]
 [ext_resource type="PackedScene" uid="uid://hmwovwxii41u" path="res://chars/player/player.tscn" id="3_y6t06"]
+[ext_resource type="Script" uid="uid://lsnum8b26010" path="res://levels/enemy_spawner.gd" id="5_y6t06"]
 
-[node name="GeneratedLevel" type="Node3D"]
+[sub_resource type="NavigationMesh" id="NavigationMesh_lncpf"]
+cell_height = 1.0
 
-[node name="ProceduralLevelGenerator" parent="." instance=ExtResource("1_3ohpv")]
+[node name="GeneratedLevel" type="Node3D" node_paths=PackedStringArray("procedural_level_generator", "navigation_region", "enemy_spawner")]
+script = ExtResource("1_lncpf")
+procedural_level_generator = NodePath("ProceduralLevelGenerator")
+navigation_region = NodePath("NavigationRegion3D")
+enemy_spawner = NodePath("EnemySpawner")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_lncpf")
+
+[node name="ProceduralLevelGenerator" parent="." node_paths=PackedStringArray("nav_region") instance=ExtResource("1_3ohpv")]
+prefab_defs = Array[ExtResource("3_572uq")]([])
+nav_region = NodePath("../NavigationRegion3D")
 
 [node name="floor_plain" parent="." instance=ExtResource("2_lncpf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 9, 35)
@@ -37,3 +53,9 @@ transform = Transform3D(1, 0, 0, 0, -0.25881907, 0.9659258, 0, -0.9659258, -0.25
 light_color = Color(0.4509027, 0.7089773, 0.8849318, 1)
 shadow_enabled = true
 directional_shadow_mode = 0
+
+[node name="EnemySpawner" type="Node" parent="."]
+script = ExtResource("5_y6t06")
+enemy_scene = ExtResource("2_y6t06")
+
+[connection signal="level_ready" from="ProceduralLevelGenerator" to="." method="_on_procedural_level_generator_level_ready"]
