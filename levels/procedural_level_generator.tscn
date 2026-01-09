@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cr8bkoacbfkqx"]
+[gd_scene load_steps=11 format=3 uid="uid://cr8bkoacbfkqx"]
 
 [ext_resource type="Script" uid="uid://chfxmv551xdim" path="res://levels/procedural_level_generator.gd" id="1_aas34"]
 [ext_resource type="PackedScene" uid="uid://cll8cdkq8xmdv" path="res://assets/env/space_station/floor_plain.blend" id="2_4hngk"]
@@ -6,11 +6,19 @@
 [ext_resource type="PackedScene" uid="uid://bo5qa6vwewaet" path="res://levels/void_cube.tscn" id="4_nmtpp"]
 [ext_resource type="Script" uid="uid://d3msmkrq07a7w" path="res://items/placeable/prefab_item_data.gd" id="4_tc60b"]
 [ext_resource type="Resource" uid="uid://b17eo5lggrw37" path="res://items/placeable/prefabs/spawn_room.tres" id="5_ge2qv"]
-[ext_resource type="Resource" uid="uid://bo2va3yxpp5oj" path="res://items/placeable/items/crate_small_item_data.tres" id="5_gwg3u"]
-[ext_resource type="Script" uid="uid://bbm2v557v8vju" path="res://items/placeable/placeable_item_data.gd" id="5_tc60b"]
 [ext_resource type="Resource" uid="uid://blna4gs7tiqq3" path="res://items/placeable/prefabs/security_room.tres" id="7_sc5pl"]
-[ext_resource type="Script" uid="uid://nouj2jdmvdcs" path="res://items/placeable/poi_data.gd" id="8_fx3g3"]
-[ext_resource type="Resource" uid="uid://dxn74hy46e7k" path="res://items/placeable/pois/sample_poi2.tres" id="10_nmtpp"]
+[ext_resource type="Script" uid="uid://cg6ipnfjexe8i" path="res://items/placeable/placeable_data.gd" id="8_h5k7e"]
+[ext_resource type="PackedScene" uid="uid://da10ivm3f6dsh" path="res://assets/env/space_station/wall_thin-middle_door.blend" id="9_fx3g3"]
+
+[sub_resource type="Resource" id="Resource_nmtpp"]
+script = ExtResource("8_h5k7e")
+scene = ExtResource("9_fx3g3")
+density = 1.0
+y_offset = 1.0
+location = 1
+room_sub_location = 2
+rotation_type = 3
+metadata/_custom_type_script = "uid://cg6ipnfjexe8i"
 
 [node name="ProceduralLevelGenerator" type="Node3D"]
 script = ExtResource("1_aas34")
@@ -19,5 +27,4 @@ floor_scene = ExtResource("2_4hngk")
 wall_scene = ExtResource("3_b6o58")
 void_cube_scene = ExtResource("4_nmtpp")
 prefab_defs = Array[ExtResource("4_tc60b")]([ExtResource("5_ge2qv"), ExtResource("7_sc5pl")])
-item_defs = Array[ExtResource("5_tc60b")]([ExtResource("5_gwg3u")])
-poi_defs = Array[ExtResource("8_fx3g3")]([ExtResource("10_nmtpp")])
+placeable_defs = Array[ExtResource("8_h5k7e")]([SubResource("Resource_nmtpp")])

@@ -22,8 +22,8 @@ extends Node3D
 
 @export_group("Placeable Item Definitions")
 @export var prefab_defs: Array[PrefabItemData] = []
-@export var item_defs: Array[PlaceableItemData] = [] 
-@export var poi_defs: Array[POIData] = []
+@export var placeable_defs: Array[PlaceableData] = []
+
 
 # --- Private Generation State ---
 var _rng: RandomNumberGenerator
@@ -52,8 +52,7 @@ func _generate_level():
 		"max_room_size": max_room_size,
 		"prefab_chance": prefab_chance,
 		"prefab_defs": prefab_defs,
-		"item_defs": item_defs,
-		"poi_defs": poi_defs,
+		"placeable_defs": placeable_defs,
 		"floor_scene": floor_scene,
 		"wall_scene": wall_scene,
 		"void_cube_scene": void_cube_scene,
