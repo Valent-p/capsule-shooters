@@ -37,7 +37,6 @@ func _place_wall_replacements(p_parent: Node3D, p_params: Dictionary) -> Diction
 
 				if tile.is_prefab or tile.is_doorway: continue
 				
-				# A wall replacement must be on a floor tile adjacent to a wall.
 				if not tile.is_wall_adjacent or not tile.is_floor: continue
 				
 				if p_params.rng.randf() >= placeable_def.density: continue
@@ -46,7 +45,6 @@ func _place_wall_replacements(p_parent: Node3D, p_params: Dictionary) -> Diction
 				p_parent.add_child(obj)
 				obj.position = Vector3(x * 4 + 2, placeable_def.y_offset, y * 4 + 2)
 				
-				# Alignment for wall replacements is mandatory.
 				_align_placeable(obj, x, y, placeable_def, p_params, occupied_wall_edges)
 
 	return occupied_wall_edges
@@ -54,7 +52,6 @@ func _place_wall_replacements(p_parent: Node3D, p_params: Dictionary) -> Diction
 # PASS 2: Find and place all objects NOT handled in other passes.
 func _place_standard_placeables(p_parent: Node3D, p_params: Dictionary):
 	for placeable_def in p_params.placeable_defs:
-		# Skip wall replacements as they were handled in the first pass.
 		if placeable_def.location == PlaceableData.Location.WALL_REPLACEMENT:
 			continue
 
@@ -75,7 +72,6 @@ func _place_standard_placeables(p_parent: Node3D, p_params: Dictionary):
 
 # --- CORE LOGIC & HELPERS ---
 
-# Generic check to see if a placeable can be placed on a given tile.
 func _can_place(p_def: PlaceableData, p_tile: LevelTileData) -> bool:
 	match p_def.location:
 		PlaceableData.Location.ROOM:
@@ -95,9 +91,7 @@ func _can_place(p_def: PlaceableData, p_tile: LevelTileData) -> bool:
 			return p_tile.is_wall_adjacent and p_tile.is_floor
 	return false
 
-# Generic function to orient a placeable object after it's been placed.
 func _align_placeable(p_obj: Node3D, x: int, y: int, p_def: PlaceableData, p_params: Dictionary, r_occupied_wall_edges: Dictionary = {}):
-	# Handle alignment for objects that replace walls.
 	if p_def.location == PlaceableData.Location.WALL_REPLACEMENT:
 		for dir in [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]:
 			var nx = x + dir.x
@@ -107,11 +101,9 @@ func _align_placeable(p_obj: Node3D, x: int, y: int, p_def: PlaceableData, p_par
 				p_obj.look_at(look_target, Vector3.UP)
 				var edge_pos = p_obj.position + Vector3(dir.x, 0, dir.y) * 2.0
 				p_obj.position = edge_pos
-				# Register the wall edge as occupied so a wall isn't also placed here.
 				r_occupied_wall_edges[Vector3i(int(edge_pos.x), 0, int(edge_pos.z))] = true
-				return # This is the only alignment this type gets.
+				return
 
-	# Handle rotation based on the defined rotation type.
 	match p_def.rotation_type:
 		PlaceableData.RotationType.FIXED:
 			p_obj.rotation_degrees.y = p_def.fixed_direction * -90
@@ -120,22 +112,23 @@ func _align_placeable(p_obj: Node3D, x: int, y: int, p_def: PlaceableData, p_par
 		PlaceableData.RotationType.RANDOM_90_DEG:
 			p_obj.rotation_degrees.y = p_params.rng.randi_range(0, 3) * 90.0
 		PlaceableData.RotationType.ALIGN_TO_CONTEXT:
-			# Intelligent alignment based on location.
 			if p_def.location == PlaceableData.Location.CORRIDOR:
-				var left = x - 1 >= 0 and p_params.grid[x-1][y].is_floor
-				var right = x + 1 < p_params.level_size.x and p_params.grid[x+1][y].is_floor
 				var up = y + 1 < p_params.level_size.y and p_params.grid[x][y+1].is_floor
 				var down = y - 1 >= 0 and p_params.grid[x][y-1].is_floor
-				if (left and right) and not (up or down): # Horizontal corridor
+				var left = x - 1 >= 0 and p_params.grid[x-1][y].is_floor
+				var right = x + 1 < p_params.level_size.x and p_params.grid[x+1][y].is_floor
+				
+				if (left and right) and not (up or down):
 					p_obj.rotation_degrees.y = [90, -90][p_params.rng.randi_range(0, 1)]
-				elif (up and down) and not (left or right): # Vertical corridor
-					p_obj.rotation_degrees.y = [0, 180][p_params.rng.randi_range(0, 1)]			
+				elif (up and down) and not (left or right):
+					p_obj.rotation_degrees.y = [0, 180][p_params.rng.randi_range(0, 1)]
+			
 			elif p_def.location == PlaceableData.Location.WALL_ADJACENT or (p_def.location == PlaceableData.Location.ROOM and p_def.room_sub_location == PlaceableData.RoomSubLocation.WALL_ADJACENT):
 				for dir in [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]:
 					var nx = x + dir.x
 					var ny = y + dir.y
 					if not TileAnalyzer._is_in_bounds(nx, ny, p_params.level_size) or not p_params.grid[nx][ny].is_floor:
-						p_obj.look_at(p_obj.position - Vector3(dir.x, 0, dir.y), Vector3.UP) # Look AWAY from wall
+						p_obj.look_at(p_obj.position - Vector3(dir.x, 0, dir.y), Vector3.UP)
 						break
 			
 			elif p_def.location == PlaceableData.Location.ROOM and p_def.room_sub_location == PlaceableData.RoomSubLocation.CORNER:
@@ -147,8 +140,6 @@ func _align_placeable(p_obj: Node3D, x: int, y: int, p_def: PlaceableData, p_par
 						wall_dir_sum += dir
 				if wall_dir_sum != Vector2i.ZERO:
 					p_obj.look_at(p_obj.position - Vector3(wall_dir_sum.x, 0, wall_dir_sum.y), Vector3.UP)
-
-# --- UNMODIFIED HELPER FUNCTIONS ---
 
 func _place_prefabs(p_parent: Node3D, p_rooms: Array):
 	for room in p_rooms:

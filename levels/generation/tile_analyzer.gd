@@ -56,29 +56,47 @@ static func analyze_tiles(p_grid: Array, p_rooms: Array, p_corridors: Array, p_l
 			if wall_count == 1: tile.is_wall_adjacent = true
 			if wall_count >= 2: tile.is_corner = true # Simplified: a tile is a "corner" if it touches 2 or more walls.
 
-	# --- Pass 2: Refine Corridor and Doorway Definitions ---
-	# SUGGESTION IMPLEMENTED: Use cardinal neighbors for corridor analysis.
-	var corridors_to_remove = []
-	for corridor_pos in p_corridors:
+	# --- Pass 2: Refine and "Purify" Corridor Definitions ---
+	# This pass ensures that only straight corridor segments are tagged as `is_corridor`.
+	# L-bends, T-junctions, and crossings are reclassified as generic "room" or "doorway" tiles.
+	var tiles_to_reclassify = []
+	# We iterate over a copy because the main `p_corridors` array will be modified.
+	for corridor_pos in p_corridors.duplicate():
 		var x = corridor_pos.x
 		var y = corridor_pos.y
-		var tile: LevelTileData = p_grid[x][y]
 		
-		# If a corridor tile has more than 2 cardinal neighbors, it's an intersection (T-junction, cross).
-		# We'll re-classify it as a "room" tile to allow more flexible POI/item placement.
+		# Check for floor neighbors in all 4 cardinal directions.
+		var up = y + 1 < p_level_size.y and p_grid[x][y+1].is_floor
+		var down = y - 1 >= 0 and p_grid[x][y-1].is_floor
+		var left = x - 1 >= 0 and p_grid[x-1][y].is_floor
+		var right = x + 1 < p_level_size.x and p_grid[x+1][y].is_floor
+		
+		# A tile is a "pure" straight corridor piece if it has exactly two neighbors,
+		# and those neighbors are opposite each other.
+		var is_straight_horizontal = left and right and not up and not down
+		var is_straight_vertical = up and down and not left and not right
+
+		# If it's not a straight line piece, mark it for reclassification.
+		if not (is_straight_horizontal or is_straight_vertical):
+			tiles_to_reclassify.append(corridor_pos)
+
+	# Now, reclassify all the identified non-straight corridor pieces.
+	for pos in tiles_to_reclassify:
+		var tile: LevelTileData = p_grid[pos.x][pos.y]
+		tile.is_corridor = false
+		tile.is_room = true # Reclassify as a generic "room" tile.
+		
+		# If it was an intersection, it's useful to mark it as a special doorway tile.
 		if tile.cardinal_neighbor_count > 2:
-			tile.is_room = true
-			tile.is_corridor = false
-			tile.is_doorway = true # Mark it as a special "doorway" intersection.
-			corridors_to_remove.append(corridor_pos)
-			
-			# Assign it to the nearest room for logical grouping.
-			if tile.room_id == -1:
-				_assign_tile_to_nearest_room(tile, x, y, p_rooms)
-	
-	# Clean up the main corridor list.
-	for pos in corridors_to_remove:
-		p_corridors.erase(pos)
+			tile.is_doorway = true
+		
+		# Assign to the nearest room for logical grouping if it doesn't have an ID yet.
+		if tile.room_id == -1:
+			_assign_tile_to_nearest_room(tile, pos.x, pos.y, p_rooms)
+		
+		# Remove it from the main corridor list so placement functions won't see it.
+		if p_corridors.has(pos):
+			p_corridors.erase(pos)
 
 # Helper to check if a grid coordinate is within the level bounds.
 static func _is_in_bounds(x: int, y: int, p_level_size: Vector2i) -> bool:
